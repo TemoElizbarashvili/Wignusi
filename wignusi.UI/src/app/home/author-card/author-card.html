@@ -1,0 +1,13 @@
+<div class="author-card">
+    <div class="author-name-nation">
+        <p class="title">{{ author.name }}</p>
+        <p class="text-primary">{{ author.nationality }}</p>
+    </div>
+    <div class="author-image">
+        <img [src]="author.authorImg" [alt]="author.name">
+    </div>
+    <div class="about-author">
+        <p class="golden-p">ავტორის შესახებ</p>
+        <p class="mute-text">{{ author.aboutAuthor | truncate: [100] }}</p>
+    </div>
+</div>

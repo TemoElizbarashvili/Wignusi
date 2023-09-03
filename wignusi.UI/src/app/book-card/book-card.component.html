@@ -1,0 +1,16 @@
+<article class="book-article">
+    <img [src]="book.imageSrc" [alt]="book.title">
+    <div class="book-card-info">
+        <p class="title">{{ book.title | truncate }}</p>
+        <p class="author">{{ book.author | truncate: [18] }}</p>
+        <div class="price-cart">
+            <div class="price">
+                {{ (book.price) }} 
+                <p class="currency">₾</p>
+            </div>
+            <button type="button">
+                <i class="fa fa-cart-plus cart" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</article>

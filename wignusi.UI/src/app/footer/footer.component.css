@@ -1,0 +1,46 @@
+.footer {
+    height: 160px;
+    background-color: #272829;
+    text-align: center;
+    display: block;
+    padding-top: 10px;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    background-image: url('/assets/images/wignusi-logo.png');
+    background-position: center;
+    background-size: 100px 100px;
+    padding-top: 100px;
+    margin: auto;
+}
+
+.socials {
+    justify-content: center;
+    align-items: center;
+    padding: auto;
+}
+
+.socials a i {
+    margin-top: 10px;
+    margin-left: 8px;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+}
+
+.socials a i:hover {
+    scale: 1.5;
+}
+
+.footer .title {
+    font-weight: bolder;
+    font-size: 30px;
+    font-style: inherit;
+    color: white;
+}
+
+.copyright {
+    color: rgb(255, 255, 255);
+    
+}

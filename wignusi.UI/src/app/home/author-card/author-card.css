@@ -1,0 +1,39 @@
+.author-card {
+    display: flex;
+    width: 80%;
+    height: 300px;
+    margin-top: 30px;
+    margin: 30px auto auto -20px;
+    cursor: pointer;
+}
+
+
+.about-author { 
+    margin-left: 20px;
+    width: 300px;
+}
+
+.about-author .mute-text {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.author-image img {
+    height: 250px;
+    margin: 0;
+}
+
+.author-name-nation {
+    margin-right: 20px;
+    width: 300px;
+    text-align: end;
+}
+.author-name-nation p.text-primary {
+    margin-top: 10px;
+}
+
+.golden-p{
+    font-weight: bold;
+    font-size: 17px;
+    color: #F29E30;
+}

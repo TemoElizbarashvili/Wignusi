@@ -1,0 +1,115 @@
+<div class="news">
+    <div class="newscards">
+        <div class="news-card">
+            <img src="https://ross.on.ge/2022/05/26/1653561755.jpg" alt="news">
+        </div>
+        <div class="news-card">
+            <img src="https://diogene.ge/_static/2305/43/42/40bbd81ca9524237994b5abcb2148e7c/istoria_kompleqti.png" alt="news">
+        </div>
+        <div class="news-card">
+            <img src="https://kvirispalitra.ge/media/images/new_photo/2020/37/shindleri.png" alt="news">
+        </div>
+    </div>
+    <div class="carousel-container">
+        <app-carousel [images]="images" [controls]="false"></app-carousel>
+    </div>
+</div>
+<div class="products-wrapper">
+    <button class="block-product" type="button">
+        <img src="https://apiv1.biblusi.ge/storage/category/69e7EeZoO0dGaHguLUypAWvlv6MVhwe075r6wALO.png" alt="wignebi">
+        <p class="title">წიგნები</p>
+        <p class="mute-text">4232 პროდუქცია</p>
+    </button>
+    <div class="products-box">
+        <div class="row-products up-row">
+            <button class="big-product-card" type="button" (click)="onShowAccessories()">
+                <div class="card-info">
+                    <p class="title">აქსესუარები</p>
+                    <p class="mute-text">4232 პროდუქცია</p>
+                </div>
+                <img src="https://apiv1.biblusi.ge/storage/category/f8oFi2Ce58aX17Rnbw8tCOqukqG7i7wLkiCue8qC.png" alt="wignebi">
+            </button>
+            <button class="small-product-card" type="button">
+                <div class="card-info">
+                    <p class="title">საკანცელარიო ნივთები</p>
+                    <p class="mute-text">4232 პროდუქცია</p>
+                </div>
+                <img src="https://apiv1.biblusi.ge/storage/category/JFFCq08o1WD7y2GFGomgSILmYlCFAT8KOYjFgg0s.jpg" alt="wignebi">
+            </button>
+        </div>
+        <div class="row-products">
+            <button class="small-product-card" type="button">
+                <div class="card-info">
+                    <p class="title">სასკოლო აქსესუარები</p>
+                    <p class="mute-text">4232 პროდუქცია</p>
+                </div>
+                <img src="https://apiv1.biblusi.ge/storage/category/DWYUyRgIXlDQroevGd8GJH1azWiaNnZ2q9MND8CY.jpg" alt="wignebi">
+            </button>
+            <button class="big-product-card" type="button">
+                <div class="card-info">
+                    <p class="title">წიგნის/ელექტრო აქსესუარები</p>
+                    <p class="mute-text">4232 პროდუქცია</p>
+                </div>
+                <img src="https://apiv1.biblusi.ge/storage/category/zZCZkmlC7wmlDTegwc9CAZUoOHDtCw2Qg8CLvM7H.jpg" alt="wignebi">
+            </button>
+        </div>
+    </div>
+    <button class="block-product" type="button">
+        <img src="https://apiv1.biblusi.ge/storage/category/YSVV2OTLlfCx7zth22hCCVFRgUwbhjS1ZFEQP0gv.jpg" alt="wignebi">
+        <p class="title">არტი და კრაფტი</p>
+        <p class="mute-text">4232 პროდუქცია</p>
+    </button>
+   
+</div>
+
+<div class="best-sellers">
+    <div class="best-sellers-wrapper">
+        <div class="best-sellers-info">
+            <h2>ბესტსელერები</h2>
+            <p>ყველაზე გაყიდვადი, მომხმარებლის რჩეული წიგნები</p>
+        </div>
+        <div class="best-sellers-controls">
+            <button type="button" class="btn btn-secondary">მაჩვენე ყველა</button>
+            <div class="arrows">
+                <button class="btn btn-secondary" type="button">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                </button>
+                <button class="btn btn-secondary" type="button">
+                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+        <img src="https://biblusi.ge/_nuxt/img/boyreadsbook.aac5d56.png" alt="bestsellers">
+    </div>
+    <div class="best-seller-cards">
+            <app-book-card *ngFor="let book of books" [book]="book"></app-book-card>
+    </div>
+    
+</div>
+
+<div class="blank">
+
+</div>
+
+<div class="authors">
+    <div class="authors-head">
+        <p class="title aut">გაიცანით ავტორები</p>
+        <div class="controls">
+            <button class="btn btn-light">მაჩვენე ყველა</button>
+            <div class="author-arrows">
+                <button class="btn btn-light" type="button">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                </button>
+                <button class="btn btn-light" type="button">
+                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="author-cards-wrapper">
+        <app-author-card *ngFor="let author of authors" [author]="author">\
+            Loading...
+        </app-author-card>
+    </div>
+   
+</div>

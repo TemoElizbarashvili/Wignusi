@@ -1,0 +1,194 @@
+.news {
+    margin-top: 20px;
+    right: 0;
+    position: relative;
+    display: flex;
+}
+
+.carousel-container {
+    height: 500px;
+    width: 100%;
+}
+
+.newscards {
+    width: 350px;
+    height: 500px;
+    margin-right: 20px;
+}
+
+.news-card {
+    width: 100%;
+    height: 33%;
+    padding: 2px;
+}
+
+.news-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.products-wrapper {
+    height: 265px;
+    margin-top: 40px;
+    justify-content: start;
+    text-align: center;
+    display: flex;
+}
+
+.block-product {
+    border: 0;
+    padding: 10px;
+    height: 100%;
+    width: 20%;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+
+.products-box {
+    width: 60%;
+    height: 255px;   
+}
+
+.row-products {
+    margin-left: 10px;
+    display: flex;
+    height: 50%;
+    margin-bottom: 10px;
+}
+
+
+.small-product-card {
+    border: 0;
+    display: flex;
+    width: 40%;
+    padding: 10px;
+    background-color: #ffffff;
+    margin-right: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.small-product-card img {
+    height: 100%;
+}
+
+.card-info {
+    display: block;
+    margin: auto;
+}
+
+.big-product-card{
+    border: 0;
+    display: flex;
+    width: 60%;
+    padding: 10px;
+    background-color: #ffffff;
+    margin-right: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+
+
+/* --------------------- Best Sellers ------------------------------ */
+
+.best-sellers {
+    margin-top: 40px;
+    height: 540px;
+    background-color: #272829;
+    margin-left: -100px;
+    margin-right: -100px;
+    color: #f1f1f1;
+    display: flex;
+}
+
+.best-sellers-wrapper {
+    width: 30%;
+    margin-left: 100px;
+}
+
+.best-sellers-info {
+    
+    display: block;
+}
+.best-sellers-info h2 {
+    font-size: 28px;
+    padding-top: 20px;
+    margin-bottom: 50px;
+}
+
+.best-sellers-info p {
+    font-size: 15px;
+    color: #E7E7E8!important;
+    font-weight: bold;
+ }
+
+.best-sellers-wrapper img {
+    margin-top: 6px;
+    width: 400px;
+}
+
+.best-sellers-controls {
+    padding-top: 36px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.best-sellers-controls button {
+    height: 40px;
+}
+
+
+.arrows button {
+    margin: 10px;
+}
+
+.best-seller-cards {
+    margin: auto 100px auto 0px;
+    
+    display: flex;
+    
+}
+
+
+/* ------------------------- Authors Article ---------------------- */
+
+.authors {
+    margin-top: 10px;
+    height: 400px;
+}
+
+.authors-head {
+    display: flex;
+}
+
+.authors-head .aut {
+    font-size: 24px;
+    padding-right: 30px;
+}
+.controls {
+    display: flex;
+}
+
+.controls  button{
+    height: 40px;
+    border: 1px solid #e7e7e8;
+}
+.author-arrows {
+    right: 100px;
+    position: absolute;
+}
+.author-arrows button {
+    margin: 0 0 0 20px;
+}
+
+.author-cards-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: auto;
+}
