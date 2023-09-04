@@ -1,0 +1,60 @@
+<div class="books-header">
+</div>
+<div class="filter-controls">
+    <div class="filters">
+        <i class="fa fa-sliders mute-text slider-icon" aria-hidden="true"></i>
+        <div class="mute-text filtr" (click)="onGanreClick()">
+            ჟანრი <i class="fa fa-caret-down" aria-hidden="true"></i>  
+        </div>
+        <div class="mute-text filtr" (click)="onPriceClick()">
+            ფასი <i class="fa fa-caret-down" aria-hidden="true"></i>
+        </div>
+        <div class="mute-text filtr" (click)="onAuthorClick()">
+            ავტორი <i class="fa fa-caret-down" aria-hidden="true"></i>
+        </div>
+        <div class="mute-text filtr">
+            <input class="form-check-input mx-2" type="checkbox"  [(ngModel)]="onlySales">
+            <label class="form-check-label" for="flexCheckDefault">
+                ფასდაკლება
+            </label>
+        </div>
+        <div class="mute-text filtr">
+            <input class="form-check-input mx-2" type="checkbox" [(ngModel)]="onlyAvialable">
+            <label class="form-check-label" for="flexCheckDefault">
+                ხელმისაწვდომია
+            </label>
+        </div>
+    </div>
+    <!-- <div class="open-ups">
+        <div *ngIf="showGanre" class="ganre">
+        </div>
+        <div *ngIf="showPrice" class="price-tab">
+        </div>
+        <div *ngIf="showAuthor" class="open-tab">
+        </div>
+    </div> -->
+</div>
+<div class="books-wrapper">
+    <app-book-card *ngFor="let book of books" [book]="book">
+
+    </app-book-card>
+    <app-book-card *ngFor="let book of books" [book]="book">
+    
+    </app-book-card>
+    <app-book-card *ngFor="let book of books" [book]="book">
+    
+    </app-book-card>
+    <app-book-card *ngFor="let book of books" [book]="book">
+    
+    </app-book-card>
+    <app-book-card *ngFor="let book of books" [book]="book">
+    
+    </app-book-card>
+    <app-book-card *ngFor="let book of books" [book]="book">
+    
+    </app-book-card>
+    <app-book-card *ngFor="let book of books" [book]="book">
+    
+    </app-book-card>
+
+</div>

@@ -1,8 +1,8 @@
 <article class="book-article">
-    <img [src]="book.imageSrc" [alt]="book.title">
+    <img [src]="book.image" [alt]="book.title" class="overlay">
     <div class="book-card-info">
         <p class="title">{{ book.title | truncate }}</p>
-        <p class="author">{{ book.author | truncate: [18] }}</p>
+        <p class="author">{{ book.authorsOrdered[0] | truncate: [18] }}</p>
         <div class="price-cart">
             <div class="price">
                 {{ (book.price) }} 

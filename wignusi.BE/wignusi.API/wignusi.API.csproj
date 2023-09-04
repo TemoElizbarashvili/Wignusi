@@ -7,11 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.21" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\wignusi.Domain\wignusi.Domain.csproj" />
+    <ProjectReference Include="..\wignusi.Infrastructure\wignusi.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

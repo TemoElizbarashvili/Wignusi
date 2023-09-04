@@ -5,6 +5,7 @@
     border-radius: 6px;
     margin-left: 20px;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .book-article img {
@@ -41,8 +42,8 @@
     display: flex;
 }
 
-
 .cart {
     color: #000000;
     font-size: 20px;
 }
+

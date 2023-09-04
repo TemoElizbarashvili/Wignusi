@@ -14,6 +14,7 @@
 
 body{
     background-color: #F1F1F1;
+    height: 100vh;
 }
 
 textarea:focus, input:focus{

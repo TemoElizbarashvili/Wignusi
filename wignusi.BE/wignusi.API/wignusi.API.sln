@@ -5,6 +5,10 @@ VisualStudioVersion = 17.5.33502.453
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "wignusi.API", "wignusi.API.csproj", "{C8437BFC-73A1-4993-B1AC-01506582A1D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wignusi.Domain", "..\wignusi.Domain\wignusi.Domain.csproj", "{F4C2A7ED-7A12-47DE-94E4-64F51A3CDEA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "wignusi.Infrastructure", "..\wignusi.Infrastructure\wignusi.Infrastructure.csproj", "{0D4B65C0-0D21-4B23-861D-C21E56DDAF09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{C8437BFC-73A1-4993-B1AC-01506582A1D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8437BFC-73A1-4993-B1AC-01506582A1D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8437BFC-73A1-4993-B1AC-01506582A1D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4C2A7ED-7A12-47DE-94E4-64F51A3CDEA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4C2A7ED-7A12-47DE-94E4-64F51A3CDEA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4C2A7ED-7A12-47DE-94E4-64F51A3CDEA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4C2A7ED-7A12-47DE-94E4-64F51A3CDEA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D4B65C0-0D21-4B23-861D-C21E56DDAF09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D4B65C0-0D21-4B23-861D-C21E56DDAF09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D4B65C0-0D21-4B23-861D-C21E56DDAF09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D4B65C0-0D21-4B23-861D-C21E56DDAF09}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { BookRm } from '../api/models';
 
 
 interface bookCardInfo {
@@ -14,7 +15,7 @@ interface bookCardInfo {
   styleUrls: ['./book-card.component.css']
 })
 export class BookCardComponent implements OnInit {
-  @Input() book: bookCardInfo;
+  @Input() book: BookRm;
 
 
   ngOnInit(): void {

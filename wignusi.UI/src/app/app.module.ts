@@ -12,6 +12,10 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 import { AuthorCardComponent } from './home/author-card/author-card';
 import { FooterComponent } from './footer/footer.component';
 import { BookCardCarousel } from './book-card-carousel/book-card-carousel.component';
+import { BooksComponent } from './books/books.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 
 @NgModule({
   declarations: [
@@ -23,12 +27,16 @@ import { BookCardCarousel } from './book-card-carousel/book-card-carousel.compon
     TruncatePipe,
     AuthorCardComponent,
     FooterComponent,
-    BookCardCarousel
+    BookCardCarousel,
+    BooksComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
+    DropDownListModule
 
   ],
   providers: [],

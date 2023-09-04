@@ -1,0 +1,89 @@
+.books-header{
+    background-image: url('https://scontent.ftbs5-2.fna.fbcdn.net/v/t1.6435-9/69917977_1279316538915651_9084750142015275008_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=e3f864&_nc_ohc=4yqOkQxi4RsAX_vUe9g&_nc_ht=scontent.ftbs5-2.fna&oh=00_AfBq7SZqQWuLRQt5xPS6Q_6rffudi_bg7CQHiDc1UVI_LA&oe=651D5BFE');
+    height: 200px;
+    width: 100%;
+    background-position: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    border-radius: 15px 15px 0 0;
+
+}
+
+.filter-controls {
+    height: 100px;
+    display: flex;
+    background-color: white;
+    border-radius: 0 0 15px 15px;
+    /* margin-bottom: 400px; */
+    padding: 2.5% 3%;
+    justify-content: space-between;
+    display: block;
+}
+
+.slider-icon{
+    font-size: 20px;
+}
+
+.filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.filtr {
+    padding-left: 40px;
+    font-size: 16px;
+}
+
+.form-check-input {
+    border: 1px solid rgb(177, 177, 177);
+}
+
+input[type=checkbox] {
+    border-radius: 35%;
+}
+
+
+.filter-name{
+    display: flex;
+}
+
+.open-ups {
+    margin-left: 300px;
+    margin-top: 10px;
+    width: 100%;
+    height: 300px;
+    display: flex;
+}
+.ganre {
+    width: 300px;
+    height: 200px;
+    background-color: white;
+    margin-left: 50px;
+    border: 1px solid rgb(189, 189, 189);
+}
+
+.price-tab{
+    width: 300px;
+    height: 200px;
+    background-color: white;
+    margin-left: 150px;
+    border: 1px solid rgb(189, 189, 189);
+}
+
+.books-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 100%;
+    justify-content: space-between;
+    min-height: xxx;
+    overflow-y: hidden;
+}
+
+app-book-card {
+    margin-top: 30px;
+}
