@@ -126,7 +126,7 @@
  }
 
 .best-sellers-wrapper img {
-    margin-top: 6px;
+    margin-top: 22px;
     width: 400px;
 }
 
@@ -139,16 +139,12 @@
 
 .best-sellers-controls button {
     height: 40px;
-}
 
-
-.arrows button {
-    margin: 10px;
 }
 
 .best-seller-cards {
     margin: auto 100px auto 0px;
-    
+    overflow-x: hidden;
     display: flex;
     
 }

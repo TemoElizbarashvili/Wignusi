@@ -70,19 +70,11 @@
         </div>
         <div class="best-sellers-controls">
             <button type="button" class="btn btn-secondary">მაჩვენე ყველა</button>
-            <div class="arrows">
-                <button class="btn btn-secondary" type="button">
-                    <i class="fa fa-arrow-left" aria-hidden="true"></i>
-                </button>
-                <button class="btn btn-secondary" type="button">
-                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                </button>
-            </div>
         </div>
         <img src="https://biblusi.ge/_nuxt/img/boyreadsbook.aac5d56.png" alt="bestsellers">
     </div>
     <div class="best-seller-cards">
-            <app-book-card *ngFor="let book of books" [book]="book"></app-book-card>
+            <app-book-card-carousel [books]="books" [endIndex]=4></app-book-card-carousel>
     </div>
     
 </div>

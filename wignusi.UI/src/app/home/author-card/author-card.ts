@@ -18,7 +18,6 @@ export class AuthorCardComponent implements OnInit {
     @Input() author: Author;
 
     ngOnInit(): void {
-        throw new Error("Method not implemented.");
     }
 
 }

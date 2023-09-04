@@ -54,7 +54,37 @@ export class HomeComponent {
       title: 'მოთხრობები ქართლიდან',
       author:'რევაზ-გიორგი არველაძე',
       price: 17.95
-    }
+    },
+    {
+      imageSrc: '/assets/images/best-sellers/paemani-sikvdiltan.png',
+      title: 'პაემანი სიკვდილთან',
+      author:'აგათა კრისტი',
+      price: 15.95
+    },
+    {
+      imageSrc: '/assets/images/best-sellers/moparuli-siyvaruli.png',
+      title: 'მოპარული სიყვარული',
+      author:'თინათინ ბერიძე',
+      price: 14.95
+    },
+    {
+      imageSrc: '/assets/images/best-sellers/gadamwvari-xidebi.jpg',
+      title: 'გადამწვარი ხიდები',
+      author:'ნათია ჯაგოდნიშვილი',
+      price: 14.95
+    },
+    {
+      imageSrc: '/assets/images/best-sellers/ekimi-dzili.png',
+      title: 'ექიმი ძილი',
+      author:'სტივენ კინგი',
+      price: 23.95
+    },
+    {
+      imageSrc: '/assets/images/best-sellers/shvidi-grdznoba.png',
+      title: 'შვიდი მომაკვდინებელი გრძნობა',
+      author:'ნიკოლოზ ტოტოღაშვილი',
+      price: 12.95 
+    },
   ]
 
   authors = [

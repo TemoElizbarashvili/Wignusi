@@ -1,0 +1,33 @@
+<div class="book-carousel-container">
+    <div class="arrows">
+        <button class="btn btn-secondary" type="button" 
+            (click)="onPrevArrow()"
+            [disabled]="startIndex <= 0">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        </button>
+        <button class="btn btn-secondary" type="button" 
+            (click)="onNextArrow()"
+            [disabled]="books.length <= endIndex">
+            <i class="fa fa-arrow-right" aria-hidden="true"></i>
+        </button>
+    </div>
+    <article *ngFor="let book of books; let i = index" 
+        class="book-article fading"
+        [ngClass]="{'book-active': endIndex >= i && startIndex < i}">
+        <img [src]="book.imageSrc" [alt]="book.title">
+        <div class="book-card-info">
+            <p class="title">{{ book.title | truncate }}</p>
+            <p class="author">{{ book.author | truncate: [18] }}</p>
+            <div class="price-cart">
+                <div class="price">
+                    {{ (book.price) }} 
+                    <p class="currency">₾</p>
+                </div>
+                <button type="button">
+                    <i class="fa fa-cart-plus cart" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </article>
+    
+</div>
