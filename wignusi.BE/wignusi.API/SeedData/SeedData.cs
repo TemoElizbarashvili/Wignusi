@@ -33,6 +33,15 @@ namespace wignusi.API.SeedData
                     Nationality = "ფრანგი"
                 };
 
+                var tag1 = new Tag
+                {
+                    TagId = "დეტექტივი"
+                };
+                var tag2 = new Tag
+                {
+                    TagId = "ფენტეზი"
+                };
+
                 var book1Id = new Guid();
                 var book2Id = new Guid();
                 var book3Id = new Guid();
@@ -49,6 +58,7 @@ namespace wignusi.API.SeedData
             " მიზანი - გაბატონება კაცობრიობაზე!",
             IsAvialable = true,
             Price = 11.95m,
+            Tags = new Tag[]{ tag1 },
             Publisher = "წიგნუსი",
             Image = "https://api.palitral.ge/storage/book/GAgyAR0UqOd7oJOy58fhMLku33gp43SNBAQ5txRM.png.webp",
             Promotion = null,
@@ -75,6 +85,7 @@ namespace wignusi.API.SeedData
             Publisher = "წიგნუსი",
             Image = "https://saba.com.ge/content/images/book/o/10b70f16143e45c6b3aa141302b9d3e4.png",
             Price = 13.95m,
+            Tags = new Tag[]{ tag1, tag2 },
             Promotion = null,
             Reviews = null,
             AuthorsLink = new BookAuthor[]
@@ -99,6 +110,7 @@ namespace wignusi.API.SeedData
             Image = "https://apiv1.biblusi.ge/storage/book/fy4CgLRMfJ9VyiHW8CPFsnOEaXOFAfcPSGU1prQ6.jpg",
             Price = 11.95m,
             Promotion = null,
+            Tags = new Tag[]{ tag2 },
             Reviews = null,
             AuthorsLink = new BookAuthor[]
             {
@@ -121,6 +133,7 @@ namespace wignusi.API.SeedData
             Publisher = "წიგნუსი",
             Image = "https://elibrary.sou.edu.ge/files/books/book-417/cover-417.jpg",
             Price = 9.95m,
+            Tags = new Tag[]{ tag2 },
             Promotion = null,
             Reviews = null,
             AuthorsLink = new BookAuthor[]

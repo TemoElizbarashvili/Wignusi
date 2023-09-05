@@ -9,13 +9,27 @@ import { RequestBuilder } from '../../request-builder';
 import { BookRm } from '../../models/book-rm';
 
 export interface GetBooksForPageBook$Plain$Params {
-  page: number;
+  pageSize?: number;
+  page?: number;
+  ganre?: string;
+  publishedFrom?: string;
+  onlySales?: boolean;
+  onlyAvialables?: boolean;
+  title?: string;
+  authorName?: string;
 }
 
-export function getBooksForPageBook$Plain(http: HttpClient, rootUrl: string, params: GetBooksForPageBook$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<BookRm>>> {
+export function getBooksForPageBook$Plain(http: HttpClient, rootUrl: string, params?: GetBooksForPageBook$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<BookRm>>> {
   const rb = new RequestBuilder(rootUrl, getBooksForPageBook$Plain.PATH, 'get');
   if (params) {
-    rb.path('page', params.page, {});
+    rb.query('pageSize', params.pageSize, {});
+    rb.query('page', params.page, {});
+    rb.query('ganre', params.ganre, {});
+    rb.query('publishedFrom', params.publishedFrom, {});
+    rb.query('onlySales', params.onlySales, {});
+    rb.query('onlyAvialables', params.onlyAvialables, {});
+    rb.query('title', params.title, {});
+    rb.query('authorName', params.authorName, {});
   }
 
   return http.request(
@@ -28,4 +42,4 @@ export function getBooksForPageBook$Plain(http: HttpClient, rootUrl: string, par
   );
 }
 
-getBooksForPageBook$Plain.PATH = '/Book/{page}';
+getBooksForPageBook$Plain.PATH = '/Book';

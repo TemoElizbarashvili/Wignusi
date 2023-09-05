@@ -29,12 +29,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
 }
 
 .filtr {
     padding-left: 40px;
     font-size: 16px;
+    cursor: pointer;
 }
 
 .form-check-input {
@@ -86,4 +86,29 @@ input[type=checkbox] {
 
 app-book-card {
     margin-top: 30px;
+}
+
+.search-icon {
+    font-size: 20px;
+    padding-left: 4%;
+    cursor: pointer;
+}
+
+.not-fount-text {
+    font-size: 30px;
+    margin-top: auto;
+    padding: auto;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+.pagination {
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.page-link {
+    color: #272829;
+    cursor: pointer;
 }

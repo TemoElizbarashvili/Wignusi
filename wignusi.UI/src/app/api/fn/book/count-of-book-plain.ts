@@ -6,13 +6,12 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { BookRm } from '../../models/book-rm';
 
-export interface GetAllBook$Plain$Params {
+export interface CountOfBook$Plain$Params {
 }
 
-export function getAllBook$Plain(http: HttpClient, rootUrl: string, params?: GetAllBook$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<BookRm>>> {
-  const rb = new RequestBuilder(rootUrl, getAllBook$Plain.PATH, 'get');
+export function countOfBook$Plain(http: HttpClient, rootUrl: string, params?: CountOfBook$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<number>> {
+  const rb = new RequestBuilder(rootUrl, countOfBook$Plain.PATH, 'get');
   if (params) {
   }
 
@@ -21,9 +20,9 @@ export function getAllBook$Plain(http: HttpClient, rootUrl: string, params?: Get
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<BookRm>>;
+      return (r as HttpResponse<any>).clone({ body: parseFloat(String((r as HttpResponse<any>).body)) }) as StrictHttpResponse<number>;
     })
   );
 }
 
-getAllBook$Plain.PATH = '/Book';
+countOfBook$Plain.PATH = '/Book/count';

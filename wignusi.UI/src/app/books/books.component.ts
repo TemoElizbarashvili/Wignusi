@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { BookRm } from '../api/models';
 import { BookService } from '../api/services';
 import { ActivatedRoute } from '@angular/router';
+import { GetBooksForPageBook$Params } from '../api/fn/book/get-books-for-page-book';
 
 @Component({
   selector: 'app-books',
@@ -12,13 +13,20 @@ import { ActivatedRoute } from '@angular/router';
 export class BooksComponent implements OnInit {
 
   books: BookRm[];
-  currentPage: number = 1;
-  showGanre = false;
-  showPrice = false;
-  showAuthor = false;
-  onlySales = false;
-  onlyAvialable = false;
-  kakao = ''
+  // showGanre = false;
+  // showPrice = false;
+  // showAuthor = false;
+  numberOfPages: number = 1;
+  params: GetBooksForPageBook$Params = {
+    page: 1,
+    pageSize: 24,
+    title: null,
+    authorName: null,
+    publishedFrom: null,
+    onlySales: false,
+    onlyAvialables: false,
+    ganre: null
+  };
 
 
   constructor(private bookService: BookService, private route: ActivatedRoute) { }
@@ -26,13 +34,13 @@ export class BooksComponent implements OnInit {
 
   ngOnInit(): void {
     this.logInfo();
-    this.route.paramMap
-      .subscribe(params => {
-        this.currentPage = +params.get('page');
-      });
-    this.bookService.getBooksForPageBook({ page: this.currentPage })
+    this.bookService.countOfBook().subscribe(response => {
+      this.numberOfPages = parseInt((response/this.params.pageSize).toString());
+      this.numberOfPages === 0 ? 1 : this.numberOfPages;
+      console.log(this.numberOfPages);
+    }, this.handleError)
+    this.bookService.getBooksForPageBook(this.params)
       .subscribe(response => {
-        console.log(response);
         this.books = response;
       }, this.handleError)
   }
@@ -43,20 +51,45 @@ export class BooksComponent implements OnInit {
   }
 
   onGanreClick() {
-    this.showGanre = !this.showGanre;
+    
   }
 
   onPriceClick() {
-    this.showPrice = !this.showPrice;
+    
   }
 
   onAuthorClick() { 
-    this.showAuthor = !this.showAuthor;
+    
+  }
+
+  search() {
+    let searchParams: GetBooksForPageBook$Params = this.params;
+    this.bookService.getBooksForPageBook(searchParams)
+      .subscribe(response => {
+        console.log(response);
+        this.books = response;
+      }, this.handleError);
+  }
+
+  createRange(number){
+    // return new Array(number);
+    return new Array(number).fill(0)
+      .map((n, index) => index + 1);
   }
 
   logInfo() {
     setInterval(() => {
     }, 3000)
+  }
+
+  onPageChange(page: number) {
+    this.params.page = page;
+    this.search();
+  }
+
+  onNextPageClick() {
+    this.params.page++;
+    this.search();
   }
 
 }

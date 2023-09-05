@@ -13,28 +13,23 @@
             ავტორი <i class="fa fa-caret-down" aria-hidden="true"></i>
         </div>
         <div class="mute-text filtr">
-            <input class="form-check-input mx-2" type="checkbox"  [(ngModel)]="onlySales">
+            <input class="form-check-input mx-2" type="checkbox"  [(ngModel)]="params.onlySales">
             <label class="form-check-label" for="flexCheckDefault">
                 ფასდაკლება
             </label>
         </div>
         <div class="mute-text filtr">
-            <input class="form-check-input mx-2" type="checkbox" [(ngModel)]="onlyAvialable">
+            <input class="form-check-input mx-2" type="checkbox" [(ngModel)]="params.onlyAvialables">
             <label class="form-check-label" for="flexCheckDefault">
                 ხელმისაწვდომია
             </label>
         </div>
+        <i class="fa fa-search mute-text search-icon" aria-hidden="true" (click)="search()"></i>
     </div>
-    <!-- <div class="open-ups">
-        <div *ngIf="showGanre" class="ganre">
-        </div>
-        <div *ngIf="showPrice" class="price-tab">
-        </div>
-        <div *ngIf="showAuthor" class="open-tab">
-        </div>
-    </div> -->
+
+
 </div>
-<div class="books-wrapper">
+<div class="books-wrapper" *ngIf="books && books.length > 0">
     <app-book-card *ngFor="let book of books" [book]="book">
 
     </app-book-card>
@@ -56,5 +51,44 @@
     <app-book-card *ngFor="let book of books" [book]="book">
     
     </app-book-card>
-
 </div>
+
+<p class="not-fount-text mute-text" *ngIf="books && books.length === 0">წიგნები ვერ მოიძებნა.</p>
+
+<nav aria-label="Page navigation example" *ngIf="numberOfPages + 1 > 0">
+    <ul class="pagination">
+      <li class="page-item" 
+      [ngClass]="{'disabled': params.page === 1}">
+        <a class="page-link" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <li class="page-item" 
+      *ngFor="let item of createRange(numberOfPages); let i = index"
+      [ngClass]="{'disabled': params.page === i+1}"
+      >
+        <a  
+        class="page-link" 
+        (click)="onPageChange(i+1)"
+        >{{ i + 1 }}</a>
+    </li>
+    <li *ngIf="numberOfPages > 5" class="page-item disabled">
+        . . .
+    </li>
+    <li class="page-item" 
+      [ngClass]="{'disabled': params.page === numberOfPages+1}"
+      *ngIf="numberOfPages > 5">
+        <a  
+        class="page-link" 
+        >{{ numberOfPages + 1 }}</a>
+    </li>
+      
+      <li class="page-item"
+      [ngClass]="{'disabled': params.page - 1 >= numberOfPages}"
+      (click)="onNextPageClick()">
+        <a class="page-link" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>

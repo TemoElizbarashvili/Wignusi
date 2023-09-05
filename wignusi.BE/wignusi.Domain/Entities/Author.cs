@@ -16,6 +16,6 @@ namespace wignusi.Domain.Entities
 
 
         // connections
-        public ICollection<BookAuthor>? BooksLink;
+        public ICollection<BookAuthor>? BooksLink { get; set; }
     }
 }

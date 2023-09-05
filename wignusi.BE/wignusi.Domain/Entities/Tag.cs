@@ -12,7 +12,7 @@ namespace wignusi.Domain.Entities
         [Key]
         [Required]
         [MaxLength(40)]
-        public string? TagId { get; set; }
+        public string TagId { get; set; } = string.Empty;
 
         // relations
         public ICollection<Book>? Books { get; set; }

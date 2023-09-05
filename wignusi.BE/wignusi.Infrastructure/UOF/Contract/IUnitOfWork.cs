@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using wignusi.Domain.Repository_Contracts;
-using wignusi.Infrastructure.Repositories;
+﻿using wignusi.Domain.Repository_Contracts;
 
 namespace wignusi.Infrastructure.UOF.Contract
 {
     public interface IUnitOfWork
     {
+        public void SaveChanges();
+        public Task SaveCHangesAsync();
+
+        // Repos
         public IBookRepository BookRepository { get; }
+        public ITagRepository TagRepository { get; }
+        public IAuthorRepository AuthorRepository { get; }
+        public IReviewRepository ReviewRepository { get; }
+        public IPriceOfferRepository PriceOfferRepository { get; }
     }
 }

@@ -16,10 +16,11 @@ namespace wignusi.Domain.DataBase
         public DbSet<Author> Authors => Set<Author>();
         public DbSet<PriceOffer> PriceOffers => Set<PriceOffer>();
         public DbSet<Tag> Tags => Set<Tag>();
+        public DbSet<Review> Reviews => Set<Review>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BookAuthor>().HasKey(x => new { x.BookId, x.AuthorId });
+            modelBuilder.Entity<BookAuthor>().HasKey(x => new { x.BookId, x.AuthorId });           
         }
 
     }

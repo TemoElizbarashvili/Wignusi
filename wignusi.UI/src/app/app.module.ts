@@ -16,6 +16,7 @@ import { BooksComponent } from './books/books.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
+import { AuthorsComponent } from './authors/authors.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
     AuthorCardComponent,
     FooterComponent,
     BookCardCarousel,
-    BooksComponent
+    BooksComponent,
+    AuthorsComponent
   ],
   imports: [
     BrowserModule,

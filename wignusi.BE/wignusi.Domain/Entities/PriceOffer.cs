@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace wignusi.Domain.Entities
 {
     public class PriceOffer
@@ -13,6 +8,7 @@ namespace wignusi.Domain.Entities
         public string PromotionalText { get; set; } = string.Empty;
 
         // Relationships
-        public long BookId { get; set; }
+        public Guid BookId { get; set; }
+
     }
 }
