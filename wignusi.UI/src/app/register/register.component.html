@@ -1,0 +1,18 @@
+<div class="login-form">
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" placeholder="მაგ. Temo" [(ngModel)]="user.username">
+        <label for="floatingInput">მომხმარებელი</label>
+      </div>
+      <div class="form-floating">
+        <input type="password" class="form-control" placeholder="Password" [(ngModel)]="user.password">
+        <label for="floatingPassword">პაროლი</label>
+      </div>
+      <div class="navigate-auth">
+        <button class="btn btn-primary" (click)="regiser(user)">
+            რეგისტრაცია
+        </button>
+        <button class="btn btn-light" [routerLink]="['/login']">
+            ავტორიზაცია
+        </button>
+      </div>
+</div>

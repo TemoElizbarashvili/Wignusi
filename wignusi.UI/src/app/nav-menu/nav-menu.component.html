@@ -11,12 +11,6 @@
         <li class="menu-item">
             <a class="nav-link" [routerLink]="['books']">წიგნები</a>
         </li>
-        <li class="menu-item">
-            <a  class="nav-link">მანგები</a>
-        </li>
-        <li class="menu-item">
-            <a class="nav-link">აქსესუარები</a>
-        </li>
     </ul>
     <div class="search">
         <input type="text" class="serach-input" placeholder="რისი მოძებნა გსურს?">
@@ -24,4 +18,10 @@
             <img src="/assets/images/search-icon.png" alt="search">
         </button>
     </div>
+    <button *ngIf="!haveToken" class="btn btn-primary auth" [routerLink]="['/login']">
+        <i class="fa fa-user" aria-hidden="true"></i>
+    </button>
+    <button *ngIf="haveToken" class="btn btn-primary auth" (click)="logout()">
+        <i class="fa fa-minus-circle" aria-hidden="true"></i>
+    </button>
 </nav>

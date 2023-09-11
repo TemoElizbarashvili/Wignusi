@@ -4,7 +4,11 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
+import { AuthService } from './services/auth.service';
+import { AuthorService } from './services/author.service';
 import { BookService } from './services/book.service';
+import { PriceOfferService } from './services/price-offer.service';
+import { TagsService } from './services/tags.service';
 
 /**
  * Module that provides all services and configuration.
@@ -14,7 +18,11 @@ import { BookService } from './services/book.service';
   exports: [],
   declarations: [],
   providers: [
+    AuthService,
+    AuthorService,
     BookService,
+    PriceOfferService,
+    TagsService,
     ApiConfiguration
   ],
 })

@@ -53,7 +53,7 @@
     </app-book-card>
 </div>
 
-<p class="not-fount-text mute-text" *ngIf="books && books.length === 0">წიგნები ვერ მოიძებნა.</p>
+<p class="not-fount-text mute-text" *ngIf="!books || books.length === 0">წიგნები ვერ მოიძებნა.</p>
 
 <nav aria-label="Page navigation example" *ngIf="numberOfPages + 1 > 0">
     <ul class="pagination">
@@ -84,11 +84,11 @@
     </li>
       
       <li class="page-item"
-      [ngClass]="{'disabled': params.page - 1 >= numberOfPages}"
+      [ngClass]="{'disabled': params.page >= numberOfPages}"
       (click)="onNextPageClick()">
-        <a class="page-link" aria-label="Next">
+        <button class="page-link" aria-label="Next" [disabled]="params.page >= numberOfPages">
           <span aria-hidden="true">&raquo;</span>
-        </a>
+        </button>
       </li>
     </ul>
   </nav>

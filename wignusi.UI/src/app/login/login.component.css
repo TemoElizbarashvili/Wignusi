@@ -1,0 +1,16 @@
+.login-form {
+    width: 40%;
+    height: auto;
+    padding: 30px;
+    margin: auto;
+    background-color: white;
+    border-radius: 15px;
+}
+
+.navigate-auth {
+    display: grid;
+}
+
+.navigate-auth button {
+    margin-top: 10px;
+}

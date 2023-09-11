@@ -9,11 +9,15 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { addBook } from '../fn/book/add-book';
+import { AddBook$Params } from '../fn/book/add-book';
 import { BookRm } from '../models/book-rm';
 import { countOfBook } from '../fn/book/count-of-book';
 import { CountOfBook$Params } from '../fn/book/count-of-book';
 import { countOfBook$Plain } from '../fn/book/count-of-book-plain';
 import { CountOfBook$Plain$Params } from '../fn/book/count-of-book-plain';
+import { editBook } from '../fn/book/edit-book';
+import { EditBook$Params } from '../fn/book/edit-book';
 import { getBooksForPageBook } from '../fn/book/get-books-for-page-book';
 import { GetBooksForPageBook$Params } from '../fn/book/get-books-for-page-book';
 import { getBooksForPageBook$Plain } from '../fn/book/get-books-for-page-book-plain';
@@ -69,6 +73,56 @@ export class BookService extends BaseService {
   getBooksForPageBook(params?: GetBooksForPageBook$Params, context?: HttpContext): Observable<Array<BookRm>> {
     return this.getBooksForPageBook$Response(params, context).pipe(
       map((r: StrictHttpResponse<Array<BookRm>>): Array<BookRm> => r.body)
+    );
+  }
+
+  /** Path part for operation `editBook()` */
+  static readonly EditBookPath = '/Book';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `editBook()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  editBook$Response(params?: EditBook$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return editBook(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `editBook$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  editBook(params?: EditBook$Params, context?: HttpContext): Observable<void> {
+    return this.editBook$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `addBook()` */
+  static readonly AddBookPath = '/Book';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `addBook()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addBook$Response(params?: AddBook$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return addBook(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `addBook$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  addBook(params?: AddBook$Params, context?: HttpContext): Observable<void> {
+    return this.addBook$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

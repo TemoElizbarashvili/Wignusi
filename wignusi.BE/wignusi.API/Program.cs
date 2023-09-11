@@ -1,16 +1,42 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Runtime.CompilerServices;
+using Swashbuckle.AspNetCore.Filters;
+using System.Text;
 using wignusi.API.SeedData;
 using wignusi.Domain.DataBase;
-using wignusi.Domain.Entities;
 using wignusi.Infrastructure.UOF;
 using wignusi.Infrastructure.UOF.Contract;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Add services to the container.
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = false,
+        ValidateLifetime = true,
+        ValidateAudience = false,
+        ValidateIssuerSigningKey = true,
+        //ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+        //ValidAudience = builder.Configuration["JwtSettings:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]))
+    };
+});
+
+builder.Services.AddAuthorization();
+
+
+
 builder.Services.AddDbContext<WignusiDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("WignusiConnection")));
 
@@ -22,6 +48,14 @@ builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen(c =>
 {
+    c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+    {
+        Description = "Standart Authorization header using the Bearer scheme (\"bearer {token}\")",
+        In = ParameterLocation.Header,
+        Name = "Authorization",
+        Type = SecuritySchemeType.ApiKey
+    });
+    c.OperationFilter<SecurityRequirementsOperationFilter>();
     c.DescribeAllParametersInCamelCase();
     c.AddServer(new OpenApiServer
     {
@@ -59,6 +93,8 @@ app.UseCors(policy =>
 });
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

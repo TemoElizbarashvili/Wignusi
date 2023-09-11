@@ -13,10 +13,14 @@ import { AuthorCardComponent } from './home/author-card/author-card';
 import { FooterComponent } from './footer/footer.component';
 import { BookCardCarousel } from './book-card-carousel/book-card-carousel.component';
 import { BooksComponent } from './books/books.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { AuthorsComponent } from './authors/authors.component';
+import { AuthInterceptor } from './Interceptor/auth.interceptor';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +34,9 @@ import { AuthorsComponent } from './authors/authors.component';
     FooterComponent,
     BookCardCarousel,
     BooksComponent,
-    AuthorsComponent
+    AuthorsComponent,
+    LoginComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,9 +45,14 @@ import { AuthorsComponent } from './authors/authors.component';
     HttpClientModule,
     FormsModule,
     DropDownListModule
-
   ],
-  providers: [],
+  providers: [
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
