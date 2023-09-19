@@ -1,18 +1,29 @@
 <div class="login-form">
-    <div class="form-floating mb-3">
-        <input type="email" class="form-control" placeholder="მაგ. Temo" [(ngModel)]="user.username">
-        <label for="floatingInput">მომხმარებელი</label>
+  <h3 class="title">რეგისტრაცია</h3>
+  <form (ngSubmit)="regiser(user)" #registerForm>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" placeholder="მაგ. Temo" name="username" [(ngModel)]="user.username" required>
+        <label for="floatingInput">მომხმარებელის სახელი</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="email" class="form-control" placeholder="მაგ. Temo@gmail.com" name="email" [(ngModel)]="user.emailAddress"required email>
+        <label for="floatingInput">მეილი</label>
+      </div>
+      <div class="form-floating mb-3">
+        <input type="text" class="form-control" placeholder="მაგ. 571127701" name="phone" [(ngModel)]="user.phone" required >
+        <label for="floatingInput">ტელეფონის ნომერი</label>
       </div>
       <div class="form-floating">
-        <input type="password" class="form-control" placeholder="Password" [(ngModel)]="user.password">
+        <input type="password" class="form-control" placeholder="Password" name="password" [(ngModel)]="user.password" required>
         <label for="floatingPassword">პაროლი</label>
       </div>
       <div class="navigate-auth">
-        <button class="btn btn-primary" (click)="regiser(user)">
+        <button class="btn btn-primary" type="submit">
             რეგისტრაცია
         </button>
-        <button class="btn btn-light" [routerLink]="['/login']">
+        <button class="btn btn-light" [routerLink]="['/login']" type="button">
             ავტორიზაცია
         </button>
       </div>
+    </form>
 </div>

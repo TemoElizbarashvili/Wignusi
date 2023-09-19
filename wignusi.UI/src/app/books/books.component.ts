@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { BookRm } from '../api/models';
-import { BookService } from '../api/services';
-import { ActivatedRoute } from '@angular/router';
+import { AuthorRm, BookRm, TagRm } from '../api/models';
+import { AuthService, AuthorService, BookService, TagsService } from '../api/services';
+import { ActivatedRoute, Params } from '@angular/router';
 import { GetBooksForPageBook$Params } from '../api/fn/book/get-books-for-page-book';
 
 @Component({
@@ -13,10 +13,10 @@ import { GetBooksForPageBook$Params } from '../api/fn/book/get-books-for-page-bo
 export class BooksComponent implements OnInit {
 
   books: BookRm[];
-  // showGanre = false;
-  // showPrice = false;
-  // showAuthor = false;
+  tags: TagRm[];
+  authors: AuthorRm[];
   numberOfPages: number = 1;
+  searchText: string;
   params: GetBooksForPageBook$Params = {
     page: 1,
     pageSize: 24,
@@ -29,20 +29,37 @@ export class BooksComponent implements OnInit {
   };
 
 
-  constructor(private bookService: BookService, private route: ActivatedRoute) { }
+  constructor(private bookService: BookService, private route: ActivatedRoute, private tagService: TagsService, private authorService: AuthorService) { }
 
 
   ngOnInit(): void {
-    this.logInfo();
+    this.route.queryParams.subscribe((params: Params) => {
+      this.searchText = params['searchText'];
+    })
+    if (this.searchText) {
+      this.bookService.searchBook({ search: this.searchText })
+        .subscribe(result => {
+          this.books = result;
+          console.log(this.searchText);
+        }, this.handleError);
+    } else {
+      this.bookService.getBooksForPageBook(this.params)
+      .subscribe(response => {
+        this.books = response;
+      }, this.handleError);
+    }
+
+    this.tagService.getAllTags().subscribe(response => {
+      this.tags = response;
+    }, this.handleError);
+    this.authorService.getAllAuthor().subscribe(response => {
+      this.authors = response;
+    }, this.handleError);
     this.bookService.countOfBook().subscribe(response => {
       this.numberOfPages = parseInt((response/this.params.pageSize).toString());
       this.numberOfPages === 0 ? 1 : this.numberOfPages;
-      console.log(this.numberOfPages);
-    }, this.handleError)
-    this.bookService.getBooksForPageBook(this.params)
-      .subscribe(response => {
-        this.books = response;
-      }, this.handleError)
+    }, this.handleError);
+    
   }
 
 
@@ -50,16 +67,12 @@ export class BooksComponent implements OnInit {
     console.log(err);
   }
 
-  onGanreClick() {
-    
+  updateTag(tag: string) {
+    this.params.ganre = tag;
   }
 
-  onPriceClick() {
-    
-  }
-
-  onAuthorClick() { 
-    
+  updateAuthor(author: string) {
+    this.params.authorName = author;
   }
 
   search() {
@@ -77,11 +90,6 @@ export class BooksComponent implements OnInit {
       .map((n, index) => index + 1);
   }
 
-  logInfo() {
-    setInterval(() => {
-    }, 3000)
-  }
-
   onPageChange(page: number) {
     this.params.page = page;
     this.search();
@@ -90,6 +98,19 @@ export class BooksComponent implements OnInit {
   onNextPageClick() {
     this.params.page++;
     this.search();
+  }
+
+  refreshFilter() {
+    this.params = {
+      page: 1,
+      pageSize: 24,
+      title: null,
+      authorName: null,
+      publishedFrom: null,
+      onlySales: false,
+      onlyAvialables: false,
+      ganre: null
+    };
   }
 
 }

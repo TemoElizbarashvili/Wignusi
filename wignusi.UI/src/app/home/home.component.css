@@ -188,3 +188,172 @@
     align-items: center;
     padding: auto;
 }
+
+.blank{
+    height: 200px;
+    background-color: white;
+    margin-left: -100px;
+    margin-right: -100px;
+}
+
+
+
+@media screen and (max-width: 1250px) {
+    .products-wrapper {
+        scale: 90%;
+        width: 100%;
+        display: block;
+        height: fit-content;
+    }
+
+    .small-product-card{
+        margin-bottom: 20px;
+    }
+
+    .small-product-card img { 
+        scale: 80%; 
+    }
+
+    .big-product-card {
+        margin-bottom: 20px;
+    }
+
+    .big-product-card img { 
+        scale: 80%;
+        
+    }
+
+    .block-product { 
+        width: 100%;
+        margin-bottom: 30px; 
+        margin-top: 10px;
+    }
+
+    .products-box {
+        width: 100%;
+    }
+
+}
+
+@media screen and (max-width: 1000px) {
+    .newscards {
+        display: none;
+    }
+    .best-sellers { 
+        height: 400px;
+    }
+    .best-sellers img { 
+        scale: 80%;
+    }
+    .carousel-container {
+        height: auto;
+    }
+    
+}
+
+@media screen and (max-width: 850px) {
+    .blank {
+        margin: 0;
+        width: 100%;
+    }
+    .newscards {
+        display: none;
+    }
+    .best-sellers {
+        width: 100%;
+        margin: 0;
+        display: block;
+    }
+    .best-sellers img { 
+        display: none;
+    }
+    .best-sellers-wrapper {
+        margin: 0 10px;
+        display: flex;
+        align-items: flex-end;
+        margin-bottom: 20px;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .best-sellers-wrapper button{
+        margin-right: 20px;
+        width: 140px;
+    }
+    .best-sellers-wrapper p {
+        margin: 0;
+        display: none;
+    }
+
+    .best-sellers-info h2 {
+        width: 100%;
+        margin: 0;
+    }
+
+    .best-sellers-controls {
+        padding: 0;
+    }
+
+    .best-seller-cards {
+        justify-content: center;
+        margin: auto 20px;
+    }
+    .authors {
+        height: fit-content;
+    }
+
+    .author-cards-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .small-product-card img { 
+        scale: 50%; 
+    }
+
+    .big-product-card {
+        margin-bottom: 20px;
+    }
+
+    .big-product-card img { 
+        scale: 50%;
+        
+    }
+    
+    .products-box {
+        display: contents;
+    }
+
+    .products-wrapper {
+        height: fit-content;
+    }
+
+    .row-products {
+        display: block;
+        margin: 3px 2px;
+    }
+
+    .big-product-card {
+        width: 100%;
+    }
+
+    .small-product-card {
+        width: 100%;
+    }
+
+    .authors-head  {
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .authors-head .aut {
+        padding: 20px;
+        font-size: 16px;
+    }
+
+    .author-arrows {
+        position: initial;
+    }
+} 
+

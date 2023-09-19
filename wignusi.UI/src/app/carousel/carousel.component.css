@@ -7,10 +7,12 @@
     box-shadow: 0 8px 16px #dce1e1;
     height: 100%;
     overflow-x: hidden;
+    
 }
 .carousel-container img {
     display: none;
     border-radius: 15px;
+    object-fit: fill;
 }
 
 .carousel-container img.image-active {
@@ -90,4 +92,16 @@
     font-size: 35px;
 }
 
+@media screen and (max-width: 1250px) {
+    .carousel-container img {
 
+        object-fit: fill;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .carousel-container {
+        object-fit: cover;
+        height: auto;
+    }
+}

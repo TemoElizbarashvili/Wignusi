@@ -14,12 +14,13 @@ namespace wignusi.Domain.Repository_Contracts
     {
         public IQueryable<Book> GetAll();
         public IQueryable<BookRm> GetAllInRm();
+        public IEnumerable<BookRm> MapToBookRm(IQueryable<Book> books);
         public Task<Book> GetByIdAsync(Guid id);
         public Book GetById(Guid id);
         public Task CreateBookAsync(Book book);
         public void CreateBook(Book book);
         public Task DeleteBookAsync(Guid id);
-        public void DeleteBook(Guid id);
+        public void DeleteBook(Book book);
         public Task EditBookAsync(Book book, Guid bookid);
         public void EditBook(Book book, Guid bookid);
         public int Count();

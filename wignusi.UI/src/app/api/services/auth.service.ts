@@ -9,19 +9,20 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { deleteAuth } from '../fn/auth/delete-auth';
+import { DeleteAuth$Params } from '../fn/auth/delete-auth';
+import { getAllAuth } from '../fn/auth/get-all-auth';
+import { GetAllAuth$Params } from '../fn/auth/get-all-auth';
+import { getAllAuth$Plain } from '../fn/auth/get-all-auth-plain';
+import { GetAllAuth$Plain$Params } from '../fn/auth/get-all-auth-plain';
 import { loginAuth } from '../fn/auth/login-auth';
 import { LoginAuth$Params } from '../fn/auth/login-auth';
 import { loginAuth$Plain } from '../fn/auth/login-auth-plain';
 import { LoginAuth$Plain$Params } from '../fn/auth/login-auth-plain';
-import { refreshTokenAuth } from '../fn/auth/refresh-token-auth';
-import { RefreshTokenAuth$Params } from '../fn/auth/refresh-token-auth';
-import { refreshTokenAuth$Plain } from '../fn/auth/refresh-token-auth-plain';
-import { RefreshTokenAuth$Plain$Params } from '../fn/auth/refresh-token-auth-plain';
+import { LoginRm } from '../models/login-rm';
 import { registerAuth } from '../fn/auth/register-auth';
 import { RegisterAuth$Params } from '../fn/auth/register-auth';
-import { registerAuth$Plain } from '../fn/auth/register-auth-plain';
-import { RegisterAuth$Plain$Params } from '../fn/auth/register-auth-plain';
-import { User } from '../models/user';
+import { UserRm } from '../models/user-rm';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService extends BaseService {
@@ -29,30 +30,55 @@ export class AuthService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `registerAuth()` */
-  static readonly RegisterAuthPath = '/Auth/register';
+  /** Path part for operation `getAllAuth()` */
+  static readonly GetAllAuthPath = '/Auth/users';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `registerAuth$Plain()` instead.
+   * To access only the response body, use `getAllAuth$Plain()` instead.
    *
-   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   * This method doesn't expect any request body.
    */
-  registerAuth$Plain$Response(params?: RegisterAuth$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<User>> {
-    return registerAuth$Plain(this.http, this.rootUrl, params, context);
+  getAllAuth$Plain$Response(params?: GetAllAuth$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<UserRm>>> {
+    return getAllAuth$Plain(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `registerAuth$Plain$Response()` instead.
+   * To access the full response (for headers, for example), `getAllAuth$Plain$Response()` instead.
    *
-   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   * This method doesn't expect any request body.
    */
-  registerAuth$Plain(params?: RegisterAuth$Plain$Params, context?: HttpContext): Observable<User> {
-    return this.registerAuth$Plain$Response(params, context).pipe(
-      map((r: StrictHttpResponse<User>): User => r.body)
+  getAllAuth$Plain(params?: GetAllAuth$Plain$Params, context?: HttpContext): Observable<Array<UserRm>> {
+    return this.getAllAuth$Plain$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<UserRm>>): Array<UserRm> => r.body)
     );
   }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllAuth()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllAuth$Response(params?: GetAllAuth$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<UserRm>>> {
+    return getAllAuth(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getAllAuth$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllAuth(params?: GetAllAuth$Params, context?: HttpContext): Observable<Array<UserRm>> {
+    return this.getAllAuth$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<UserRm>>): Array<UserRm> => r.body)
+    );
+  }
+
+  /** Path part for operation `registerAuth()` */
+  static readonly RegisterAuthPath = '/Auth/register';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -60,7 +86,7 @@ export class AuthService extends BaseService {
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  registerAuth$Response(params?: RegisterAuth$Params, context?: HttpContext): Observable<StrictHttpResponse<User>> {
+  registerAuth$Response(params?: RegisterAuth$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
     return registerAuth(this.http, this.rootUrl, params, context);
   }
 
@@ -70,9 +96,9 @@ export class AuthService extends BaseService {
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  registerAuth(params?: RegisterAuth$Params, context?: HttpContext): Observable<User> {
+  registerAuth(params?: RegisterAuth$Params, context?: HttpContext): Observable<void> {
     return this.registerAuth$Response(params, context).pipe(
-      map((r: StrictHttpResponse<User>): User => r.body)
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 
@@ -85,7 +111,7 @@ export class AuthService extends BaseService {
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  loginAuth$Plain$Response(params?: LoginAuth$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+  loginAuth$Plain$Response(params?: LoginAuth$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<LoginRm>> {
     return loginAuth$Plain(this.http, this.rootUrl, params, context);
   }
 
@@ -95,9 +121,9 @@ export class AuthService extends BaseService {
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  loginAuth$Plain(params?: LoginAuth$Plain$Params, context?: HttpContext): Observable<string> {
+  loginAuth$Plain(params?: LoginAuth$Plain$Params, context?: HttpContext): Observable<LoginRm> {
     return this.loginAuth$Plain$Response(params, context).pipe(
-      map((r: StrictHttpResponse<string>): string => r.body)
+      map((r: StrictHttpResponse<LoginRm>): LoginRm => r.body)
     );
   }
 
@@ -107,7 +133,7 @@ export class AuthService extends BaseService {
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  loginAuth$Response(params?: LoginAuth$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+  loginAuth$Response(params?: LoginAuth$Params, context?: HttpContext): Observable<StrictHttpResponse<LoginRm>> {
     return loginAuth(this.http, this.rootUrl, params, context);
   }
 
@@ -117,56 +143,34 @@ export class AuthService extends BaseService {
    *
    * This method sends `application/*+json` and handles request body of type `application/*+json`.
    */
-  loginAuth(params?: LoginAuth$Params, context?: HttpContext): Observable<string> {
+  loginAuth(params?: LoginAuth$Params, context?: HttpContext): Observable<LoginRm> {
     return this.loginAuth$Response(params, context).pipe(
-      map((r: StrictHttpResponse<string>): string => r.body)
+      map((r: StrictHttpResponse<LoginRm>): LoginRm => r.body)
     );
   }
 
-  /** Path part for operation `refreshTokenAuth()` */
-  static readonly RefreshTokenAuthPath = '/Auth/refresh-token';
+  /** Path part for operation `deleteAuth()` */
+  static readonly DeleteAuthPath = '/Auth/delete/{id}';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `refreshTokenAuth$Plain()` instead.
+   * To access only the response body, use `deleteAuth()` instead.
    *
    * This method doesn't expect any request body.
    */
-  refreshTokenAuth$Plain$Response(params?: RefreshTokenAuth$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
-    return refreshTokenAuth$Plain(this.http, this.rootUrl, params, context);
+  deleteAuth$Response(params: DeleteAuth$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return deleteAuth(this.http, this.rootUrl, params, context);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `refreshTokenAuth$Plain$Response()` instead.
+   * To access the full response (for headers, for example), `deleteAuth$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  refreshTokenAuth$Plain(params?: RefreshTokenAuth$Plain$Params, context?: HttpContext): Observable<string> {
-    return this.refreshTokenAuth$Plain$Response(params, context).pipe(
-      map((r: StrictHttpResponse<string>): string => r.body)
-    );
-  }
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `refreshTokenAuth()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  refreshTokenAuth$Response(params?: RefreshTokenAuth$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
-    return refreshTokenAuth(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `refreshTokenAuth$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  refreshTokenAuth(params?: RefreshTokenAuth$Params, context?: HttpContext): Observable<string> {
-    return this.refreshTokenAuth$Response(params, context).pipe(
-      map((r: StrictHttpResponse<string>): string => r.body)
+  deleteAuth(params: DeleteAuth$Params, context?: HttpContext): Observable<void> {
+    return this.deleteAuth$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

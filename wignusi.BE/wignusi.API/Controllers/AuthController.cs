@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
-using wignusi.API.Models;
 using wignusi.Domain.Dtos;
 using wignusi.Domain.Entities;
+using wignusi.Domain.ReadModels;
+using wignusi.Infrastructure.Errors;
+using wignusi.Infrastructure.UOF.Contract;
 
 namespace wignusi.API.Controllers
 {
@@ -15,101 +12,92 @@ namespace wignusi.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        public static User user = new User();
-        private readonly IConfiguration _configuration;
+        private readonly IUnitOfWork _uow;
 
-        public AuthController(IConfiguration configuration)
+        public AuthController(IUnitOfWork uow)
         {
-            _configuration = configuration;
+            _uow = uow;
         }
 
-        [HttpPost("register")]
-        public ActionResult<User> Register(UserDto request)
+        [Authorize(Roles = "Admin")]
+        [HttpGet("users")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult<List<UserRm>>> GetAll()
         {
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+            return await _uow.UserRepository.GetAllInRm();
+        }
 
-            user.Username = request.Username;
-            user.PasswordHash = passwordHash;
 
-            return Ok(user);
+        [HttpPost("register")]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(409)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> Register(UserDto request)
+        {
+            var user = _uow.UserRepository.MapDtoToUser(request);
+            await _uow.UserRepository.AddUser(user);
+            try
+            {
+               await _uow.SaveChangesAsync();
+            } catch(Exception ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
+
+            return CreatedAtAction(nameof(Register), user);
         }
 
         [HttpPost("login")]
-        public  ActionResult<string> Login(UserDto request)
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult<LoginRm>> Login(LoginDto request)
         {
-            if (!user.Username.Equals(request.Username))
+            var user = await _uow.UserRepository.GetByEmail(request.Email);
+
+            if (user == null)
                 return BadRequest("User name or password is incorect");
 
-            if(!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+            if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
                 return BadRequest("User name or password is incorect");
 
-            string token = CreateToken(user);
+            string token = _uow.UserRepository.CreateToken(user);
 
-            var refreshToken = GenerateRefreshToken();
-            SetRefreshToken(refreshToken);
+            var refreshToken = _uow.UserRepository.GenerateRefreshToken();
+            _uow.UserRepository.SetRefreshToken(refreshToken);
 
-            return Ok(token);
+            var loginRm = new LoginRm
+            (
+                token,
+                user.Role
+            );
+            return Ok(loginRm);
         }
 
-        private string CreateToken(User user)
+        [Authorize(Roles = "Admin")]
+        [HttpDelete("delete/{id}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(409)]
+        [ProducesResponseType(500)]
+        public async Task<IActionResult> Delete([FromRoute]int id)
         {
-            List<Claim> claims = new List<Claim>
+            var error = await _uow.UserRepository.DeleteUser(id);
+            try
             {
-                new Claim(ClaimTypes.Name, user.Username)
-            };
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("JwtSettings:Key").Value!));
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
-
-            var token = new JwtSecurityToken(
-                claims: claims,
-                expires: DateTime.Now.AddDays(1),
-                signingCredentials: creds
-                );
-
-            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-
-            return jwt;
-        }
-
-        [HttpPost("refresh-token")]
-        public  ActionResult<string> RefreshToken()
-        {
-            var refreshToken = Request.Cookies["refreshToken"];
-
-            if (!user.RefreshToken.Equals(refreshToken))
-                return Unauthorized("Invalid refresh Token");
-
-            string token = CreateToken(user);
-            var newRefreshToken = GenerateRefreshToken();
-            SetRefreshToken(newRefreshToken);
-
-            return Ok(token);
-        }
-
-        private RefreshToken GenerateRefreshToken()
-        {
-            var refreshToken = new RefreshToken
+                await _uow.SaveChangesAsync();
+            } 
+            catch(Exception ex)
             {
-                Token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64)),
-                Expires = DateTime.Now.AddDays(7),
-                Created = DateTime.Now
-            };
-
-            return refreshToken;
+                return Conflict(new { message = ex.Message });
+            }
+            return error is NotFoundError ? NotFound() : NoContent();
         }
-    
-        private void SetRefreshToken(RefreshToken newRefreshToken)
-        {
-            var cookieOptions = new CookieOptions
-            {
-                HttpOnly = true,
-                Expires = newRefreshToken.Expires
-            };
-            Response.Cookies.Append("refreshToken", newRefreshToken.Token, cookieOptions);
 
-            user.RefreshToken = newRefreshToken.Token;
-        }
+
     }
 }

@@ -20,6 +20,10 @@ import { getAllAuthor } from '../fn/author/get-all-author';
 import { GetAllAuthor$Params } from '../fn/author/get-all-author';
 import { getAllAuthor$Plain } from '../fn/author/get-all-author-plain';
 import { GetAllAuthor$Plain$Params } from '../fn/author/get-all-author-plain';
+import { getByIdAuthor } from '../fn/author/get-by-id-author';
+import { GetByIdAuthor$Params } from '../fn/author/get-by-id-author';
+import { getByIdAuthor$Plain } from '../fn/author/get-by-id-author-plain';
+import { GetByIdAuthor$Plain$Params } from '../fn/author/get-by-id-author-plain';
 
 @Injectable({ providedIn: 'root' })
 export class AuthorService extends BaseService {
@@ -146,6 +150,53 @@ export class AuthorService extends BaseService {
   deleteAuthor(params?: DeleteAuthor$Params, context?: HttpContext): Observable<void> {
     return this.deleteAuthor$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `getByIdAuthor()` */
+  static readonly GetByIdAuthorPath = '/Author/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getByIdAuthor$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getByIdAuthor$Plain$Response(params: GetByIdAuthor$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthorRm>> {
+    return getByIdAuthor$Plain(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getByIdAuthor$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getByIdAuthor$Plain(params: GetByIdAuthor$Plain$Params, context?: HttpContext): Observable<AuthorRm> {
+    return this.getByIdAuthor$Plain$Response(params, context).pipe(
+      map((r: StrictHttpResponse<AuthorRm>): AuthorRm => r.body)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getByIdAuthor()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getByIdAuthor$Response(params: GetByIdAuthor$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthorRm>> {
+    return getByIdAuthor(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getByIdAuthor$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getByIdAuthor(params: GetByIdAuthor$Params, context?: HttpContext): Observable<AuthorRm> {
+    return this.getByIdAuthor$Response(params, context).pipe(
+      map((r: StrictHttpResponse<AuthorRm>): AuthorRm => r.body)
     );
   }
 

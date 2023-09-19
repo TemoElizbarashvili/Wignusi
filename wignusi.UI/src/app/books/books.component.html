@@ -3,14 +3,19 @@
 <div class="filter-controls">
     <div class="filters">
         <i class="fa fa-sliders mute-text slider-icon" aria-hidden="true"></i>
-        <div class="mute-text filtr" (click)="onGanreClick()">
-            ჟანრი <i class="fa fa-caret-down" aria-hidden="true"></i>  
+        <div class="dropdown">
+          <button *ngIf="!params.ganre" class="dropdown-btn mute-text filtr">ჟანრი <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+          <button *ngIf="params.ganre" class="dropdown-btn mute-text filtr">{{ params.ganre }} <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+          <div class="dropdown-options ">
+            <a *ngFor="let tag of tags" (click)="updateTag(tag.tag)">{{ tag.tag }}</a>
+          </div>
         </div>
-        <div class="mute-text filtr" (click)="onPriceClick()">
-            ფასი <i class="fa fa-caret-down" aria-hidden="true"></i>
-        </div>
-        <div class="mute-text filtr" (click)="onAuthorClick()">
-            ავტორი <i class="fa fa-caret-down" aria-hidden="true"></i>
+        <div class="dropdown">
+          <button *ngIf="!params.authorName" class="dropdown-btn mute-text filtr">ავტორი <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+          <button *ngIf="params.authorName" class="dropdown-btn mute-text filtr">{{ params.authorName }} <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+          <div class="dropdown-options ">
+            <a *ngFor="let author of authors" (click)="updateAuthor(author.name)">{{ author.name }}</a>
+          </div>
         </div>
         <div class="mute-text filtr">
             <input class="form-check-input mx-2" type="checkbox"  [(ngModel)]="params.onlySales">
@@ -24,6 +29,7 @@
                 ხელმისაწვდომია
             </label>
         </div>
+        <i class="fa fa-refresh mute-text refresh-icon" aria-hidden="true" (click)="refreshFilter()"></i>
         <i class="fa fa-search mute-text search-icon" aria-hidden="true" (click)="search()"></i>
     </div>
 
@@ -62,6 +68,9 @@
         <a class="page-link" aria-label="Previous">
           <span aria-hidden="true">&laquo;</span>
         </a>
+      </li>
+      <li>
+        
       </li>
       <li class="page-item" 
       *ngFor="let item of createRange(numberOfPages); let i = index"

@@ -1,0 +1,43 @@
+
+    <div class="table-title">
+        <h3>წიგნები</h3>
+        <a class="btn btn-outline-success" [routerLink]="['add']">დაამატე ახალი წიგნი</a>
+    </div>
+
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">სათაური</th>
+              <th scope="col">გამომცემელი</th>
+              <th scope="col">აღწერა</th>
+              <th scope="col">ფასი</th>
+              <th scope="col">ფასდაკლებული</th>
+              <th scope="col">ხელმისაწვდომია</th>
+              <th scope="col">ავტორი</th>
+              <th scope="col">ტეგები</th>
+              <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let book of books; let i = index">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ book.title }}</td>
+              <td>{{ book.publisher }}</td>
+              <td>{{ book.description | truncate: [50] }}</td>
+              <td>{{ book.price }}</td>
+              <td>{{ book.actualPrice }}</td>
+              <td>{{ book.isAvialable ? 'მისაწვდომია' : 'მიუწვდომელია' }}</td>
+              <td>{{ book.authorsOrdered[0] }}</td>
+              <td><p *ngFor="let tag of book.tags">{{ tag }}</p></td>
+              <td>
+                <div class="actions-container">
+                    <a class="table-actions"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a class="table-actions"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    <a class="table-actions" (click)="onDeleteBook(book.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                </div>
+              </td>
+            </tr>
+        </tbody>
+    </table>
+    <p *ngIf="(books.length <= 0) || !books">წიგნები ვერ მოიძებნა, ან არ გაქვთ წვდომის უფლება!</p>

@@ -6,25 +6,24 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { User } from '../../models/user';
 import { UserDto } from '../../models/user-dto';
 
 export interface RegisterAuth$Params {
       body?: UserDto
 }
 
-export function registerAuth(http: HttpClient, rootUrl: string, params?: RegisterAuth$Params, context?: HttpContext): Observable<StrictHttpResponse<User>> {
+export function registerAuth(http: HttpClient, rootUrl: string, params?: RegisterAuth$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
   const rb = new RequestBuilder(rootUrl, registerAuth.PATH, 'post');
   if (params) {
     rb.body(params.body, 'application/*+json');
   }
 
   return http.request(
-    rb.build({ responseType: 'json', accept: 'text/json', context })
+    rb.build({ responseType: 'text', accept: '*/*', context })
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<User>;
+      return (r as HttpResponse<any>).clone({ body: undefined }) as StrictHttpResponse<void>;
     })
   );
 }

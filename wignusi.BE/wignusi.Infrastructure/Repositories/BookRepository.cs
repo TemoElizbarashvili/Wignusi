@@ -38,11 +38,9 @@ namespace wignusi.Infrastructure.Repositories
             await _context.AddAsync(book);
         }
 
-        public void DeleteBook(Guid id)
+        public void DeleteBook(Book book)
         {
-            var bookToDelete = this.GetById(id);
-            _context.Remove(bookToDelete);
-
+            _context.Remove(book);
         }
 
         public async Task DeleteBookAsync(Guid id)

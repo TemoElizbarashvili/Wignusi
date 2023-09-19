@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,10 +19,12 @@ namespace wignusi.Domain.DataBase
         public DbSet<Tag> Tags => Set<Tag>();
         public DbSet<Review> Reviews => Set<Review>();
         public DbSet<Accessory> Accessories => Set<Accessory>();
+        public DbSet<User> Users => Set<User>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BookAuthor>().HasKey(x => new { x.BookId, x.AuthorId });
+            modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
         }
 
     }

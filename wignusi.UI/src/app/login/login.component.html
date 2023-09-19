@@ -1,18 +1,21 @@
 <div class="login-form">
+  <h3 class="title">ავტორიზაცია</h3>
+  <form (ngSubmit)="login(user)">
     <div class="form-floating mb-3">
-        <input type="email" class="form-control" placeholder="მაგ. Temo" [(ngModel)]="user.username">
+        <input type="email" class="form-control" placeholder="მაგ. Temo" name="email" [(ngModel)]="user.email">
         <label for="floatingInput">მომხმარებელი</label>
       </div>
       <div class="form-floating">
-        <input type="password" class="form-control" placeholder="Password"  [(ngModel)]="user.password">
+        <input type="password" class="form-control" placeholder="Password" name="password" [(ngModel)]="user.password">
         <label for="floatingPassword">პაროლი</label>
       </div>
       <div class="navigate-auth">
-        <button class="btn btn-primary" (click)="login(user)">
+        <button class="btn btn-primary" type="submit">
             ავტორიზაცია
         </button>
-        <button class="btn btn-light" [routerLink]="['/register']">
+        <button class="btn btn-light" [routerLink]="['/register']" type="button">
             რეგისტრაცია
         </button>
       </div>
+    </form>
 </div>

@@ -6,17 +6,16 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { User } from '../../models/user';
-import { UserDto } from '../../models/user-dto';
+import { AuthorRm } from '../../models/author-rm';
 
-export interface RegisterAuth$Plain$Params {
-      body?: UserDto
+export interface GetByIdAuthor$Plain$Params {
+  id: number;
 }
 
-export function registerAuth$Plain(http: HttpClient, rootUrl: string, params?: RegisterAuth$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<User>> {
-  const rb = new RequestBuilder(rootUrl, registerAuth$Plain.PATH, 'post');
+export function getByIdAuthor$Plain(http: HttpClient, rootUrl: string, params: GetByIdAuthor$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthorRm>> {
+  const rb = new RequestBuilder(rootUrl, getByIdAuthor$Plain.PATH, 'get');
   if (params) {
-    rb.body(params.body, 'application/*+json');
+    rb.path('id', params.id, {});
   }
 
   return http.request(
@@ -24,9 +23,9 @@ export function registerAuth$Plain(http: HttpClient, rootUrl: string, params?: R
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<User>;
+      return r as StrictHttpResponse<AuthorRm>;
     })
   );
 }
 
-registerAuth$Plain.PATH = '/Auth/register';
+getByIdAuthor$Plain.PATH = '/Author/{id}';

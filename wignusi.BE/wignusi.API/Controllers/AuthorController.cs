@@ -29,6 +29,27 @@ namespace wignusi.API.Controllers
             return Ok(_uow.AuthorRepository.GetAllInRm());
         }
 
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public ActionResult<AuthorRm> GetById(int id)
+        {
+            var author = _uow.AuthorRepository.GetById(id);
+            var authorToReturn = new AuthorRm(
+                author.AuthorId,
+                author.Name,
+                author.Description,
+                author.Nationality,
+                author.Image,
+                author.BooksLink!.Select(b => b.BookId).ToArray()
+                );
+            return Ok(authorToReturn);
+        }
+
+
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
@@ -51,6 +72,7 @@ namespace wignusi.API.Controllers
             return NoContent();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
@@ -71,7 +93,7 @@ namespace wignusi.API.Controllers
             return CreatedAtAction(nameof(Add), authorToAdd);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]

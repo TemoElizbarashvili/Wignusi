@@ -14,12 +14,18 @@ import { FooterComponent } from './footer/footer.component';
 import { BookCardCarousel } from './book-card-carousel/book-card-carousel.component';
 import { BooksComponent } from './books/books.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { AuthorsComponent } from './authors/authors.component';
 import { AuthInterceptor } from './Interceptor/auth.interceptor';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ManageBooksComponent } from './Admin/manage-books/manage-books.component';
+import { ManageAuthorsComponent } from './Admin/manage-authors/manage-authors.component';
+import { AuthGuard } from './Services/auth.guard';
+import { AdminAuthGuard } from './Services/admin-auth.guard';
+import { ManageUsersComponent } from './Admin/manage-users/manage-users.component';
+import { AddBookComponent } from './Admin/manage-books/add-book/add-book.component';
 
 
 @NgModule({
@@ -37,6 +43,10 @@ import { RegisterComponent } from './register/register.component';
     AuthorsComponent,
     LoginComponent,
     RegisterComponent,
+    ManageBooksComponent,
+    ManageAuthorsComponent,
+    ManageUsersComponent,
+    AddBookComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +54,7 @@ import { RegisterComponent } from './register/register.component';
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     DropDownListModule
   ],
   providers: [
@@ -51,7 +62,9 @@ import { RegisterComponent } from './register/register.component';
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
-  }
+  },
+  AuthGuard,
+  AdminAuthGuard
 ],
   bootstrap: [AppComponent]
 })

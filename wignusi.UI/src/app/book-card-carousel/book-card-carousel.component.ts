@@ -21,7 +21,7 @@ export class BookCardCarousel implements OnInit {
     startIndex:number = -1;
 
     ngOnInit(): void {
-        console.log('Init');
+        
     }
 
     onNextArrow() {

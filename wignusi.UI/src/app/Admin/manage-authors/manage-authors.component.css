@@ -1,0 +1,12 @@
+.actions-container a { 
+    margin: 5px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.actions-container a i { 
+    font-size: 14px;
+    padding: 4px;
+    color: white;
+}

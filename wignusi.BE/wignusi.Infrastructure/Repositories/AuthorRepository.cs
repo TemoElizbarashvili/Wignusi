@@ -105,7 +105,7 @@ namespace wignusi.Infrastructure.Repositories
 
         public Author GetById(long id)
         {
-            var authorToReturn = _context.Authors.SingleOrDefault(a => a.AuthorId == id);
+            var authorToReturn = _context.Authors.Include(a => a.BooksLink).FirstOrDefault(a => a.AuthorId == id);
             if (authorToReturn != null) return authorToReturn;
             else return null!;
         }

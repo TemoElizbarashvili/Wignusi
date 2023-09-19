@@ -20,4 +20,8 @@
     <ProjectReference Include="..\wignusi.Infrastructure\wignusi.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Middlewares\" />
+  </ItemGroup>
+
 </Project>

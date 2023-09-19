@@ -1,4 +1,4 @@
-﻿namespace wignusi.API.Models
+﻿namespace wignusi.Domain.Models
 {
     public class RefreshToken
     {

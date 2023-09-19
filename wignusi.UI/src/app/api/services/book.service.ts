@@ -16,17 +16,74 @@ import { countOfBook } from '../fn/book/count-of-book';
 import { CountOfBook$Params } from '../fn/book/count-of-book';
 import { countOfBook$Plain } from '../fn/book/count-of-book-plain';
 import { CountOfBook$Plain$Params } from '../fn/book/count-of-book-plain';
+import { deleteBook } from '../fn/book/delete-book';
+import { DeleteBook$Params } from '../fn/book/delete-book';
 import { editBook } from '../fn/book/edit-book';
 import { EditBook$Params } from '../fn/book/edit-book';
+import { getAllBook } from '../fn/book/get-all-book';
+import { GetAllBook$Params } from '../fn/book/get-all-book';
+import { getAllBook$Plain } from '../fn/book/get-all-book-plain';
+import { GetAllBook$Plain$Params } from '../fn/book/get-all-book-plain';
 import { getBooksForPageBook } from '../fn/book/get-books-for-page-book';
 import { GetBooksForPageBook$Params } from '../fn/book/get-books-for-page-book';
 import { getBooksForPageBook$Plain } from '../fn/book/get-books-for-page-book-plain';
 import { GetBooksForPageBook$Plain$Params } from '../fn/book/get-books-for-page-book-plain';
+import { searchBook } from '../fn/book/search-book';
+import { SearchBook$Params } from '../fn/book/search-book';
+import { searchBook$Plain } from '../fn/book/search-book-plain';
+import { SearchBook$Plain$Params } from '../fn/book/search-book-plain';
 
 @Injectable({ providedIn: 'root' })
 export class BookService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
+  }
+
+  /** Path part for operation `getAllBook()` */
+  static readonly GetAllBookPath = '/Book/books';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllBook$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllBook$Plain$Response(params?: GetAllBook$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<BookRm>>> {
+    return getAllBook$Plain(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getAllBook$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllBook$Plain(params?: GetAllBook$Plain$Params, context?: HttpContext): Observable<Array<BookRm>> {
+    return this.getAllBook$Plain$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<BookRm>>): Array<BookRm> => r.body)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllBook()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllBook$Response(params?: GetAllBook$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<BookRm>>> {
+    return getAllBook(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getAllBook$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllBook(params?: GetAllBook$Params, context?: HttpContext): Observable<Array<BookRm>> {
+    return this.getAllBook$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<BookRm>>): Array<BookRm> => r.body)
+    );
   }
 
   /** Path part for operation `getBooksForPageBook()` */
@@ -122,6 +179,78 @@ export class BookService extends BaseService {
    */
   addBook(params?: AddBook$Params, context?: HttpContext): Observable<void> {
     return this.addBook$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `searchBook()` */
+  static readonly SearchBookPath = '/Book/search';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `searchBook$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  searchBook$Plain$Response(params?: SearchBook$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<BookRm>>> {
+    return searchBook$Plain(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `searchBook$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  searchBook$Plain(params?: SearchBook$Plain$Params, context?: HttpContext): Observable<Array<BookRm>> {
+    return this.searchBook$Plain$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<BookRm>>): Array<BookRm> => r.body)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `searchBook()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  searchBook$Response(params?: SearchBook$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<BookRm>>> {
+    return searchBook(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `searchBook$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  searchBook(params?: SearchBook$Params, context?: HttpContext): Observable<Array<BookRm>> {
+    return this.searchBook$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<BookRm>>): Array<BookRm> => r.body)
+    );
+  }
+
+  /** Path part for operation `deleteBook()` */
+  static readonly DeleteBookPath = '/Book/delte/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `deleteBook()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteBook$Response(params: DeleteBook$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return deleteBook(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `deleteBook$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  deleteBook(params: DeleteBook$Params, context?: HttpContext): Observable<void> {
+    return this.deleteBook$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
     );
   }

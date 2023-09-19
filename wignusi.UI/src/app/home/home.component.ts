@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -6,6 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+
+
+
+  constructor(private router: Router) { }
 
   images = [
     {
@@ -115,5 +120,13 @@ export class HomeComponent {
 
   onShowAccessories() {
     
+  }
+
+  onShowMeBestSellers() {
+    this.router.navigate(['books' , '?ganre=ბესტსელერი']);
+  }
+
+  onShowBooks() {
+    this.router.navigate(['books']);
   }
 }

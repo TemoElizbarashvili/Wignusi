@@ -5,6 +5,7 @@
     margin: auto;
     background-color: white;
     border-radius: 15px;
+    text-align: center;
 }
 
 .navigate-auth {
@@ -14,3 +15,12 @@
 .navigate-auth button {
     margin-top: 10px;
 }
+
+.title {
+    margin-bottom: 30px;
+}
+
+input.ng-valid.ng-touched {
+    border: 0px solid green;
+}
+

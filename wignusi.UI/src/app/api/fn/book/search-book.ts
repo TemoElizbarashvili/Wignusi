@@ -6,13 +6,16 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
+import { BookRm } from '../../models/book-rm';
 
-export interface RefreshTokenAuth$Params {
+export interface SearchBook$Params {
+  search?: string;
 }
 
-export function refreshTokenAuth(http: HttpClient, rootUrl: string, params?: RefreshTokenAuth$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
-  const rb = new RequestBuilder(rootUrl, refreshTokenAuth.PATH, 'post');
+export function searchBook(http: HttpClient, rootUrl: string, params?: SearchBook$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<BookRm>>> {
+  const rb = new RequestBuilder(rootUrl, searchBook.PATH, 'get');
   if (params) {
+    rb.query('search', params.search, {});
   }
 
   return http.request(
@@ -20,9 +23,9 @@ export function refreshTokenAuth(http: HttpClient, rootUrl: string, params?: Ref
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<string>;
+      return r as StrictHttpResponse<Array<BookRm>>;
     })
   );
 }
 
-refreshTokenAuth.PATH = '/Auth/refresh-token';
+searchBook.PATH = '/Book/search';

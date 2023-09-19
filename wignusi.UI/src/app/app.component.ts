@@ -1,6 +1,4 @@
-import { Component } from '@angular/core';
-import { User } from './api/models';
-import { AuthService } from './api/services';
+import { Component, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +6,9 @@ import { AuthService } from './api/services';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'wignusi.UI';
+  title = 'wignusi';
 
+
+ 
 
 }

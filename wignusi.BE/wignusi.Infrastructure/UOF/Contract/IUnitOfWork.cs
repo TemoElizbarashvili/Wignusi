@@ -5,7 +5,7 @@ namespace wignusi.Infrastructure.UOF.Contract
     public interface IUnitOfWork
     {
         public void SaveChanges();
-        public Task SaveCHangesAsync();
+        public Task SaveChangesAsync();
 
         // Repos
         public IBookRepository BookRepository { get; }
@@ -13,5 +13,6 @@ namespace wignusi.Infrastructure.UOF.Contract
         public IAuthorRepository AuthorRepository { get; }
         public IReviewRepository ReviewRepository { get; }
         public IPriceOfferRepository PriceOfferRepository { get; }
+        public IUserRepository UserRepository { get; }
     }
 }

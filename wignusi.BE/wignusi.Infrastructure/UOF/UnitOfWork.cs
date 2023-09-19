@@ -1,4 +1,5 @@
-﻿using wignusi.Domain.DataBase;
+﻿using Microsoft.Extensions.Configuration;
+using wignusi.Domain.DataBase;
 using wignusi.Domain.Repository_Contracts;
 using wignusi.Infrastructure.Repositories;
 using wignusi.Infrastructure.UOF.Contract;
@@ -17,8 +18,10 @@ namespace wignusi.Infrastructure.UOF
         public IReviewRepository ReviewRepository { get; }
 
         public IPriceOfferRepository PriceOfferRepository { get; }
+        
+        public IUserRepository UserRepository { get; }
 
-        public UnitOfWork(WignusiDbContext context)
+        public UnitOfWork(WignusiDbContext context, IConfiguration configuration)
         {
             _context = context;
             this.BookRepository = new BookRepository(context);
@@ -26,6 +29,7 @@ namespace wignusi.Infrastructure.UOF
             this.TagRepository = new TagRepository(context);
             this.ReviewRepository = new ReviewRepository(context);
             this.PriceOfferRepository = new PriceOfferRepository(context);
+            this.UserRepository = new UserRepository(configuration, context);
         }
 
         public void SaveChanges()
@@ -33,7 +37,7 @@ namespace wignusi.Infrastructure.UOF
             _context.SaveChanges();
         }
 
-        public async Task SaveCHangesAsync()
+        public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }

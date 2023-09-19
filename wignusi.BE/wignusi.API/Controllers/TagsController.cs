@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using wignusi.Domain.Entities;
 using wignusi.Domain.ReadModels;
 using wignusi.Infrastructure.UOF.Contract;
@@ -26,7 +28,7 @@ namespace wignusi.API.Controllers
             return Ok(_uow.TagRepository.GetAllInRm());
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(400)]
@@ -54,6 +56,7 @@ namespace wignusi.API.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]

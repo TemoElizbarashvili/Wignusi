@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using wignusi.Domain.Dtos;
 using wignusi.Domain.ReadModels;
 using wignusi.Infrastructure.Errors;
@@ -27,7 +29,7 @@ namespace wignusi.API.Controllers
             return Ok(_uow.PriceOfferRepository.GetAllInRm());
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
@@ -48,7 +50,7 @@ namespace wignusi.API.Controllers
             return CreatedAtAction(nameof(Add), priceOfferToAdd);
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]

@@ -11,17 +11,29 @@
         <li class="menu-item">
             <a class="nav-link" [routerLink]="['books']">წიგნები</a>
         </li>
+        <li *ngIf="isAdmin" class="menu-item">
+            <div class="dropdown">
+                <button class="dropdown-btn">ადმინი <i class="fa fa-caret-down" aria-hidden="true"></i></button>
+                <div class="dropdown-options">
+                  <a [routerLink]="['admin', 'books']">წიგნები</a>
+                  <a [routerLink]="['admin', 'authors']">ავტორები</a>
+                  <a [routerLink]="['admin', 'users']">მომხმარებელი</a>
+                  <a>ადმინის რეგისტრაცია</a>
+                </div>
+              </div>
+        </li>
     </ul>
-    <div class="search">
-        <input type="text" class="serach-input" placeholder="რისი მოძებნა გსურს?">
-        <button>
-            <img src="/assets/images/search-icon.png" alt="search">
-        </button>
-    </div>
-    <button *ngIf="!haveToken" class="btn btn-primary auth" [routerLink]="['/login']">
-        <i class="fa fa-user" aria-hidden="true"></i>
+        <form class="search" #form>
+            <input type="text" class="serach-input" name="search" placeholder="რისი მოძებნა გსურს?" [(ngModel)]="searchText">
+            <button type="submit" [routerLink]="['books']" [queryParams]="{searchText: searchText}">
+                <img src="/assets/images/search-icon.png" alt="search">
+            </button>
+        </form>
+    <button *ngIf="!isLoggedIn" class="btn btn-primary auth" [routerLink]="['/login']">
+        <i class="fa fa-user" aria-hidden="true" ></i>
     </button>
-    <button *ngIf="haveToken" class="btn btn-primary auth" (click)="logout()">
+    <button *ngIf="isLoggedIn" class="btn btn-primary auth" (click)="logout()">
         <i class="fa fa-minus-circle" aria-hidden="true"></i>
     </button>
 </nav>
+
