@@ -20,7 +20,10 @@ export class ManageBooksComponent implements OnInit {
 
 
   onDeleteBook(id: any) {
-    this.bookService.deleteBook(id);
+    this.bookService.deleteBook({ id: id })
+      .subscribe(() => {
+        console.log('Deleted bokk with ID: ' + id);
+      });
     this.books = this.books.filter(b => b.id != id);
   }
 }

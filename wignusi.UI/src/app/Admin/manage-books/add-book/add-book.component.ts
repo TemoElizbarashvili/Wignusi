@@ -45,19 +45,6 @@ export class AddBookComponent implements OnInit {
     const authorId = this.bookForm.get('authorId').value;
     let author: AuthorDto;
 
-    try {
-      const response = await this.authorService.getByIdAuthor({ id: authorId }).toPromise();
-      author = {
-        name: response.name,
-        description: response.description,
-        nationality: response.nationality,
-        image: response.image
-      }
-        
-    } catch (error) {
-      console.error('Error fetching author:', error);
-    }
-
     console.log('author ID ' + this.bookForm.get('authorId').value);
     this.bookDto = {
       title: this.bookForm.get('title').value,
@@ -68,6 +55,7 @@ export class AddBookComponent implements OnInit {
       price: this.bookForm.get('price').value,
       isAvialable: this.bookForm.get('isAvialable').value,
       authors: [author],
+      authorsIds: [authorId],
       tags: [this.bookForm.get('tag').value]
     }
 

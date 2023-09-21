@@ -8,6 +8,7 @@ namespace wignusi.Domain.ReadModels
 {
     public record LoginRm(
         string Token,
-        string Role
+        string Role,
+        int Id
         );
 }

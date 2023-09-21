@@ -20,6 +20,8 @@ namespace wignusi.Domain.DataBase
         public DbSet<Review> Reviews => Set<Review>();
         public DbSet<Accessory> Accessories => Set<Accessory>();
         public DbSet<User> Users => Set<User>();
+        public DbSet<ShoppingCart> shoppingCarts => Set<ShoppingCart>();
+        public DbSet<Order> Orders => Set<Order>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

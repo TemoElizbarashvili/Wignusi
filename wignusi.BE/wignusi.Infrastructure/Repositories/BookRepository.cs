@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
+using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,7 +89,7 @@ namespace wignusi.Infrastructure.Repositories
             }
         }
 
-        public IQueryable<Book> GetAll() => _context.Books;
+        public IQueryable<Book> GetAll() => _context.Books.Include(b => b.Tags).Include(t => t.AuthorsLink);
 
         public IQueryable<BookRm> GetAllInRm()
         {
@@ -124,7 +125,7 @@ namespace wignusi.Infrastructure.Repositories
 
         public Book GetById(Guid id)
         {
-            var book = _context.Books?.FirstOrDefault(b => b.BookId == id);
+            var book = _context.Books?.Include(b => b.Tags).Include(b => b.AuthorsLink).FirstOrDefault(b => b.BookId == id);
             if (book != null)
                 return book;
             else
@@ -228,13 +229,11 @@ namespace wignusi.Infrastructure.Repositories
 
         public Book MapDtoToBook(BookDto bookDto)
         {
-            var tagss = bookDto.tags.Select(t => new Tag
-            {
-                TagId = t
-            });
+            var bookId = Guid.NewGuid();
+            
             var book = new Book
             {
-                BookId = Guid.NewGuid(),
+                BookId = bookId,
                 Title = bookDto.Title,
                 Description = bookDto.Description,
                 Image = bookDto.Image,
@@ -243,18 +242,28 @@ namespace wignusi.Infrastructure.Repositories
                 Price = bookDto.Price,
                 IsAvialable = bookDto.IsAvialable,
                 AuthorsLink = new List<BookAuthor>(),
-                Tags = tagss.ToList()
+                Tags = new List<Tag>()
             };
-            var bookAuthors = bookDto.authors.Select(a => new BookAuthor
+            for (byte i = 0; i< bookDto.authorsIds.Length; i++ )
             {
-                Author = MapAuthorDtoToAuthor(a),
-                Book = book
-            });
-            foreach(var author in bookAuthors)
-            {
-                book.AuthorsLink.Add(author);
+                var author = _context.Authors.Include(a => a.BooksLink).FirstOrDefault(a => a.AuthorId == bookDto.authorsIds[i]);
+                if (author != null)
+                    book.AuthorsLink.Add(new BookAuthor
+                    {
+                        Book = book,
+                        Author = author,
+                        Order = i
+                    });
             }
-            
+            foreach (var tag in bookDto.tags)
+            {
+                var tagFromDb = _context.Tags.Where(t => t.TagId.Equals(tag)).FirstOrDefault();
+                if (tagFromDb != null)
+                {
+                    book.Tags?.Add(tagFromDb);
+                }
+                else book.Tags?.Add(new Tag { TagId = tag });
+            }
             return book;
         }
     }

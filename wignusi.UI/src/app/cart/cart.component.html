@@ -1,0 +1,51 @@
+<div class="card">
+    <div class="row">
+        <div class="col-md-8 cart">
+            <div class="title">
+                <div class="row">
+                    <div class="col"><h4><b>კალათა</b></h4></div>
+                    <div class="col align-self-center text-right text-muted">{{ cartLines.length }} ნივთი</div>
+                </div>
+            </div>    
+            <div *ngIf="cartLines && cartLines.length > 0" class="row border-top border-bottom">
+                <div  class="row main align-items-center" *ngFor="let line of cartLines">
+                    <div class="col-2">
+                        <img class="img-fluid" [src]='line.bookImage' [alt]="line.bookTitle">
+                    </div>
+                    <div class="col">
+                        <div class="row">{{ line.bookTitle }}</div>
+                    </div>
+                    <div class="col-3 col-sm-2 col-lg-3 manage-quantity">
+                        <i class="fa-solid fa-square-minus" style="color: red; font-size: 20px; margin:auto 4px" (click)="decrementCount(line.cartId)"></i>
+                        <p class="quantity">| {{ line.quantity }} |</p>
+                        <i class="fa-solid fa-square-plus" style="color: green; font-size: 20px;  margin:auto 4px" (click)="incrementCount(line.cartId)"></i>
+                    </div>
+                    <div class="col">₾ {{ calculateLinePrice(line.bookPrice, line.quantity) }} <span class="close"><i class="fas fa-trash"></i></span></div>
+                </div>
+            </div>
+            <p class="text-danger text-center" *ngIf="!cartLines || cartLines.length <= 0">თქვენ არ გაქვთ არაფერი კალათაში.</p>
+            <div class="back-to-shop"><a><i class="fas fa-long-arrow-alt-left"></i> </a><span class="text-muted">უკან დაბრუნება</span></div>
+        </div>
+        <div class="col-md-4 summary">
+            <div><h5><b>შეჯამება</b></h5></div>
+            <hr>
+            <div class="row">
+                <div class="col" style="padding-left:0;">ნივთები: {{  calculateQuantities() }}</div>
+                <div class="col text-right">₾ {{ calculateTotalPrice() }}</div>
+            </div>
+            <div>
+                <p>მიწოდება:</p>
+                <select [(ngModel)]="deliveryPrice">
+                    <option [value]='5' class="text-muted" [selected]=true>სტანდარტული(3 დღე)- ₾5.00</option>
+                    <option [value]='8' class="text-muted" [selected]=true>სწრაფი(1 დღე)- ₾8.00</option>
+                </select>
+            </div>
+            <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                <div class="col">ჯამი:</div>
+                <div class="col text-right">  ₾ {{ calculateTotalPriceWithDelivery() }}</div>
+            </div>
+            <button class="btn buttn" style="font-size: 16px;" [disabled]="calculateTotalPriceWithDelivery() <= 5">შეძენა</button>
+        </div>
+    </div>
+    
+</div>

@@ -12,6 +12,7 @@ namespace wignusi.Domain.Dtos
         [Required] decimal Price,
         [Required] bool IsAvialable,
         AuthorDto[] authors,
+        long[] authorsIds,
         [Required] string[] tags
         );
 }

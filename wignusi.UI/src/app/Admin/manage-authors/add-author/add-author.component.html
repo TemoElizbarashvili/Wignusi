@@ -1,0 +1,21 @@
+<form class="row g-3" [formGroup]="authorForm" (ngSubmit)="onSubmit()">
+    <div class="col-md-6">
+      <label for="inputEmail4" class="form-label">სახელი</label>
+      <input type="text" class="form-control" id="name" formControlName="name"  placeholder="ავტორის სახელი">
+    </div>
+    <div class="col-12">
+      <label for="description" class="form-label">აღწერა</label>
+      <textarea cols="10" rows="10" class="form-control"  formControlName="description" ></textarea>
+    </div>
+    <div class="col-12">
+      <label for="inputAddress2" class="form-label">ფოტოს ლინკი</label>
+      <input type="text" class="form-control" id="image" placeholder="სურათი" formControlName="image">
+    </div>
+    <div class="col-md-6">
+        <label for="inputEmail4" class="form-label">წარმოშობა</label>
+        <input type="text" class="form-control" id="nationality" formControlName="nationality"  placeholder="წარმოშობა">
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-success">დამატება</button>
+    </div>
+</form>

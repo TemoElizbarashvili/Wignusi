@@ -11,7 +11,7 @@ export class AdminAuthGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
             const role = localStorage.getItem('role');
             if (role != "Admin") {
-                this.router.navigate([ 'books' ]);
+                this.router.navigate([ 'books', { requestedUrl: state.url } ]);
             }
 
             return true;

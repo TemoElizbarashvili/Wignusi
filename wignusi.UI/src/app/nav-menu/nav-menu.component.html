@@ -29,11 +29,14 @@
                 <img src="/assets/images/search-icon.png" alt="search">
             </button>
         </form>
+    <button *ngIf="isLoggedIn" class="btn btn-secondary cart" [routerLink]="['/cart']">
+        <i class="fab fa-opencart"></i>
+    </button>
     <button *ngIf="!isLoggedIn" class="btn btn-primary auth" [routerLink]="['/login']">
-        <i class="fa fa-user" aria-hidden="true" ></i>
+        <i class="fas fa-user"></i>
     </button>
     <button *ngIf="isLoggedIn" class="btn btn-primary auth" (click)="logout()">
-        <i class="fa fa-minus-circle" aria-hidden="true"></i>
+        <i class="fas fa-sign-out-alt"></i>
     </button>
 </nav>
 

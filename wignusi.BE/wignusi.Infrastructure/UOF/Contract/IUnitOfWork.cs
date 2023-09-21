@@ -14,5 +14,6 @@ namespace wignusi.Infrastructure.UOF.Contract
         public IReviewRepository ReviewRepository { get; }
         public IPriceOfferRepository PriceOfferRepository { get; }
         public IUserRepository UserRepository { get; }
+        public IShoppingCartRepository ShoppingCartRepository { get; }
     }
 }

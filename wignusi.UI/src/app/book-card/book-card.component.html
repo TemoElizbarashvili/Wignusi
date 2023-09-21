@@ -8,8 +8,8 @@
                 {{ (book.price) }} 
                 <p class="currency">₾</p>
             </div>
-            <button type="button">
-                <i class="fa fa-cart-plus cart" aria-hidden="true"></i>
+            <button type="button" (click)="addToCart(book.id)">
+                <i class="fas fa-cart-plus cart"></i>
             </button>
         </div>
     </div>

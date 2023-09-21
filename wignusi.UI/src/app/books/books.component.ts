@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 
 import { AuthorRm, BookRm, TagRm } from '../api/models';
-import { AuthService, AuthorService, BookService, TagsService } from '../api/services';
-import { ActivatedRoute, Params } from '@angular/router';
+import {  AuthorService, BookService, TagsService } from '../api/services';
 import { GetBooksForPageBook$Params } from '../api/fn/book/get-books-for-page-book';
 
 @Component({
@@ -10,8 +10,8 @@ import { GetBooksForPageBook$Params } from '../api/fn/book/get-books-for-page-bo
   templateUrl: './books.component.html',
   styleUrls: ['./books.component.css']
 })
-export class BooksComponent implements OnInit {
-
+export class BooksComponent implements OnInit, OnDestroy {
+  subscription;
   books: BookRm[];
   tags: TagRm[];
   authors: AuthorRm[];
@@ -29,25 +29,27 @@ export class BooksComponent implements OnInit {
   };
 
 
-  constructor(private bookService: BookService, private route: ActivatedRoute, private tagService: TagsService, private authorService: AuthorService) { }
-
+  constructor(private bookService: BookService, private route: ActivatedRoute, private tagService: TagsService, private authorService: AuthorService, 
+    private router: Router) { }
 
   ngOnInit(): void {
+
     this.route.queryParams.subscribe((params: Params) => {
-      this.searchText = params['searchText'];
-    })
-    if (this.searchText) {
-      this.bookService.searchBook({ search: this.searchText })
-        .subscribe(result => {
-          this.books = result;
-          console.log(this.searchText);
-        }, this.handleError);
-    } else {
-      this.bookService.getBooksForPageBook(this.params)
+      this.params.title = params['searchText'];
+      this.params.page = isNaN(+params['page']) ? 1 : +params['page'];
+      this.params.pageSize = isNaN(+params['pageSize']) ? 24 : +params['pageSize'];
+      this.params.authorName = params['authorName'];
+      this.params.onlySales = params['onlySales'];
+      this.params.onlyAvialables = params['onlyAvialables'];
+      this.params.ganre = params['ganre'];
+    });
+
+    console.log(this.params);
+   
+    this.bookService.getBooksForPageBook(this.params)
       .subscribe(response => {
         this.books = response;
       }, this.handleError);
-    }
 
     this.tagService.getAllTags().subscribe(response => {
       this.tags = response;
@@ -60,11 +62,30 @@ export class BooksComponent implements OnInit {
       this.numberOfPages === 0 ? 1 : this.numberOfPages;
     }, this.handleError);
     
+    this.subscription = this.router.events.subscribe( event => {
+      if (event instanceof NavigationEnd) {
+        this.updateParams();
+      }
+    })
+
   }
 
 
   handleError(err: any) {
     console.log(err);
+  }
+
+  updateParams() {
+    this.route.queryParams.subscribe((params: Params) => {
+      this.params.title = params['searchText'];
+      this.params.page = params['page'] ?? 1;
+      this.params.pageSize = params['pageSize'] ?? 24;
+      this.params.authorName = params['authorName'];
+      this.params.onlySales = params['onlySales'];
+      this.params.onlyAvialables = params['onlyAvialables'];
+      this.params.ganre = params['ganre'];
+    });
+    this.search();
   }
 
   updateTag(tag: string) {
@@ -79,13 +100,11 @@ export class BooksComponent implements OnInit {
     let searchParams: GetBooksForPageBook$Params = this.params;
     this.bookService.getBooksForPageBook(searchParams)
       .subscribe(response => {
-        console.log(response);
         this.books = response;
       }, this.handleError);
   }
 
   createRange(number){
-    // return new Array(number);
     return new Array(number).fill(0)
       .map((n, index) => index + 1);
   }
@@ -111,6 +130,10 @@ export class BooksComponent implements OnInit {
       onlyAvialables: false,
       ganre: null
     };
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }

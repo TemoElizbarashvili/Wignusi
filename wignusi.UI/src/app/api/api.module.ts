@@ -7,6 +7,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 import { AuthService } from './services/auth.service';
 import { AuthorService } from './services/author.service';
 import { BookService } from './services/book.service';
+import { CartService } from './services/cart.service';
 import { PriceOfferService } from './services/price-offer.service';
 import { TagsService } from './services/tags.service';
 
@@ -21,6 +22,7 @@ import { TagsService } from './services/tags.service';
     AuthService,
     AuthorService,
     BookService,
+    CartService,
     PriceOfferService,
     TagsService,
     ApiConfiguration

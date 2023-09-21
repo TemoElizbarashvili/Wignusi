@@ -23,9 +23,9 @@ namespace wignusi.Domain.Entities
 
         // Relationships
 
-        public ICollection<BookAuthor>? AuthorsLink { get; set; } = new List<BookAuthor>(); 
+        public ICollection<BookAuthor>? AuthorsLink { get; set; }
         public ICollection<Review>? Reviews { get; set; }
-        public ICollection<Tag>? Tags { get; set; } = new List<Tag>();
+        public ICollection<Tag>? Tags { get; set; }
         public PriceOffer? Promotion { get; set; }
     }
 }

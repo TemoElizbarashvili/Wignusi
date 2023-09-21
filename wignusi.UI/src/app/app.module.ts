@@ -26,6 +26,9 @@ import { AuthGuard } from './Services/auth.guard';
 import { AdminAuthGuard } from './Services/admin-auth.guard';
 import { ManageUsersComponent } from './Admin/manage-users/manage-users.component';
 import { AddBookComponent } from './Admin/manage-books/add-book/add-book.component';
+import { AddAuthorComponent } from './Admin/manage-authors/add-author/add-author.component';
+import { EditBookComponent } from './Admin/manage-books/edit-book/edit-book.component';
+import { CartComponent } from './cart/cart.component';
 
 
 @NgModule({
@@ -47,6 +50,9 @@ import { AddBookComponent } from './Admin/manage-books/add-book/add-book.compone
     ManageAuthorsComponent,
     ManageUsersComponent,
     AddBookComponent,
+    AddAuthorComponent,
+    EditBookComponent,
+    CartComponent,
   ],
   imports: [
     BrowserModule,

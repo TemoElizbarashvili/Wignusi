@@ -8,7 +8,7 @@ import { AuthorService } from 'src/app/api/services';
   styleUrls: ['./manage-authors.component.css']
 })
 export class ManageAuthorsComponent implements OnInit{
-  authors: AuthorRm[];
+  authors: AuthorRm[] = [];
 
 
   constructor(private authorService: AuthorService) { }
@@ -19,7 +19,10 @@ export class ManageAuthorsComponent implements OnInit{
   }
   
   onDeleteAuthor(id) {
-    this.authorService.deleteAuthor(id);
+    this.authorService.deleteAuthor({ id: id })
+      .subscribe(() => {
+        console.log('Deleted Author with ID: ' + id);
+      });
     this.authors = this.authors.filter(a => a.id != id);
   }
 

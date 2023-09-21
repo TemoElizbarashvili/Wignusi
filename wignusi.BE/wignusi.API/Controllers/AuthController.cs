@@ -72,7 +72,8 @@ namespace wignusi.API.Controllers
             var loginRm = new LoginRm
             (
                 token,
-                user.Role
+                user.Role,
+                user.UserId
             );
             return Ok(loginRm);
         }

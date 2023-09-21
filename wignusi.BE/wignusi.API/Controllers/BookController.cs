@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.Internal;
 using wignusi.Domain.Dtos;
 using wignusi.Domain.ReadModels;
 using wignusi.Infrastructure.Dtos;
@@ -63,6 +64,40 @@ namespace wignusi.API.Controllers
         }
 
 
+        [HttpGet("/{id}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult<BookDto>> GetById(Guid id)
+        {
+            var bookList = _uow.BookRepository.GetAll();
+            var book = await bookList.FirstOrDefaultAsync(b => b.BookId == id);
+
+            if (book != null)
+            {
+                var bookDTo = new BookDto
+                (
+                    book.Title,
+                    book.Description,
+                    book.Image,
+                    book.Publisher!,
+                    book.PublishedOn,
+                    book.Price,
+                    book.IsAvialable,
+                    null!,
+                    null!,
+                    book.Tags!.Select(t => t.TagId).ToArray()
+                );
+                return Ok(bookDTo);
+
+            } else
+            {
+                return NotFound();
+            }
+        }
+
+        [Authorize(Roles = "Admin")]
         [HttpDelete("delte/{id}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
@@ -106,13 +141,14 @@ namespace wignusi.API.Controllers
             var bookToAdd = _uow.BookRepository.MapDtoToBook(book);
             _uow.BookRepository.CreateBook(bookToAdd);
 
-            //try
-            //{
+            try
+            {
                 _uow.SaveChanges();
-            //} catch (Exception)
-            //{
-            //    return Conflict(new { message = "An error occured while adding a book. Please try again" });
-            //}
+            }
+            catch (Exception)
+            {
+                return Conflict(new { message = "An error occured while adding a book. Please try again" });
+            }
 
             return Ok();
         }
@@ -137,6 +173,10 @@ namespace wignusi.API.Controllers
             }
             return Ok();
         }
+    
+    
+    
+    
     }
 }
 

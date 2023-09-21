@@ -94,6 +94,18 @@ input.ng-valid.ng-touched {
     border: 0;
 }
 
+.cart {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+    padding: 5px;
+    margin: auto 0 auto 2px;
+}
+
+.cart:hover {
+    background-color: #b0c1d4;
+    color: black;
+}
 
 
 @media screen and (max-width: 850px) {
