@@ -9,7 +9,7 @@ namespace wignusi.Domain.Entities
         public int ShoppingCartId { get; set; }
         public int Quantity { get; set; }
         public Guid BookId { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         // Relationships
         [ForeignKey("BookId")]

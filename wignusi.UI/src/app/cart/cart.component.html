@@ -37,14 +37,13 @@
                 <p>მიწოდება:</p>
                 <select [(ngModel)]="deliveryPrice">
                     <option [value]='5' class="text-muted" [selected]=true>სტანდარტული(3 დღე)- ₾5.00</option>
-                    <option [value]='8' class="text-muted" [selected]=true>სწრაფი(1 დღე)- ₾8.00</option>
                 </select>
             </div>
             <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
                 <div class="col">ჯამი:</div>
                 <div class="col text-right">  ₾ {{ calculateTotalPriceWithDelivery() }}</div>
             </div>
-            <button class="btn buttn" style="font-size: 16px;" [disabled]="calculateTotalPriceWithDelivery() <= 5">შეძენა</button>
+            <button class="btn buttn" style="font-size: 16px;" [disabled]="calculateTotalPriceWithDelivery() <= 5" [routerLink]="['/checkout', {}]">შეძენა</button>
         </div>
     </div>
     

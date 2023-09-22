@@ -29,6 +29,8 @@ import { AddBookComponent } from './Admin/manage-books/add-book/add-book.compone
 import { AddAuthorComponent } from './Admin/manage-authors/add-author/add-author.component';
 import { EditBookComponent } from './Admin/manage-books/edit-book/edit-book.component';
 import { CartComponent } from './cart/cart.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { SummaryComponent } from './summary/summary.component';
 
 
 @NgModule({
@@ -53,6 +55,8 @@ import { CartComponent } from './cart/cart.component';
     AddAuthorComponent,
     EditBookComponent,
     CartComponent,
+    CheckoutComponent,
+    SummaryComponent,
   ],
   imports: [
     BrowserModule,

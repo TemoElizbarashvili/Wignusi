@@ -4,6 +4,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 using wignusi.API.SeedData;
 using wignusi.Domain.DataBase;
 using wignusi.Infrastructure.UOF;
@@ -75,6 +77,12 @@ var dbContext = app.Services.CreateScope().ServiceProvider.GetService<WignusiDbC
 dbContext?.Database.EnsureCreated();
 var seeder = new SeedData(dbContext!);
 seeder.SeedBooks();
+
+JsonSerializerOptions options = new()
+{
+    ReferenceHandler = ReferenceHandler.IgnoreCycles,
+    WriteIndented = true
+};
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

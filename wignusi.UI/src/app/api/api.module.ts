@@ -8,6 +8,7 @@ import { AuthService } from './services/auth.service';
 import { AuthorService } from './services/author.service';
 import { BookService } from './services/book.service';
 import { CartService } from './services/cart.service';
+import { OrderService } from './services/order.service';
 import { PriceOfferService } from './services/price-offer.service';
 import { TagsService } from './services/tags.service';
 
@@ -23,6 +24,7 @@ import { TagsService } from './services/tags.service';
     AuthorService,
     BookService,
     CartService,
+    OrderService,
     PriceOfferService,
     TagsService,
     ApiConfiguration

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using wignusi.Domain.Entities;
+using wignusi.Domain.ReadModels;
 
 namespace wignusi.Domain.DataBase
 {
@@ -27,6 +28,7 @@ namespace wignusi.Domain.DataBase
         {
             modelBuilder.Entity<BookAuthor>().HasKey(x => new { x.BookId, x.AuthorId });
             modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+            modelBuilder.Entity<BookQuantity>().HasNoKey();
         }
 
     }

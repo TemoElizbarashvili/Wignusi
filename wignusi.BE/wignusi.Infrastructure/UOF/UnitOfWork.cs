@@ -23,6 +23,8 @@ namespace wignusi.Infrastructure.UOF
         
         public IShoppingCartRepository ShoppingCartRepository { get; }
 
+        public IOrderRepository OrderRepository { get; }
+
         public UnitOfWork(WignusiDbContext context, IConfiguration configuration)
         {
             _context = context;
@@ -33,6 +35,7 @@ namespace wignusi.Infrastructure.UOF
             this.PriceOfferRepository = new PriceOfferRepository(context);
             this.UserRepository = new UserRepository(configuration, context);
             this.ShoppingCartRepository = new ShoppingCartRepository(context);
+            this.OrderRepository = new OrderRepository(context);
         }
 
         public void SaveChanges()

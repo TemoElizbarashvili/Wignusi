@@ -13,6 +13,8 @@ import { AddAuthorComponent } from './Admin/manage-authors/add-author/add-author
 import { EditBookComponent } from './Admin/manage-books/edit-book/edit-book.component';
 import { CartComponent } from './cart/cart.component';
 import { AuthGuard } from './Services/auth.guard';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { SummaryComponent } from './summary/summary.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -27,6 +29,8 @@ const routes: Routes = [
   { path: 'admin/authors/add', component: AddAuthorComponent, canActivate: [AuthGuard, AdminAuthGuard] },
   { path: 'admin/users', component: ManageUsersComponent, canActivate: [AuthGuard, AdminAuthGuard] },
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
+  { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
+  { path: 'summary', component: SummaryComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

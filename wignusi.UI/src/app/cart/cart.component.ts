@@ -80,7 +80,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.cartLines.forEach( async c => {
       await this.cartService.editCart({ cartId: c.cartId, quantity: c.quantity }).
         subscribe(() => {
-
+          
         });
     })
   }
