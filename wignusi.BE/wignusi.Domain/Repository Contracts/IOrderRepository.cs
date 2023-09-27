@@ -18,6 +18,7 @@ namespace wignusi.Domain.Repository_Contracts
         public Task<Object> GetOrder(int OrderId);
         public Task<Order> MapDtoToOrder(OrderDto dto);
         public Task ChangeStatus(int orderId, string status);
+        public Task<List<OrderRm>> Filter(string status);
 
     }
 }

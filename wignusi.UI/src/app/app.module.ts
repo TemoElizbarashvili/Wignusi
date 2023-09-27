@@ -31,6 +31,10 @@ import { EditBookComponent } from './Admin/manage-books/edit-book/edit-book.comp
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { SummaryComponent } from './summary/summary.component';
+import { BookComponent } from './book/book.component';
+import { OrderInvoiceComponent } from './order-invoice/order-invoice.component';
+import { OrderCardComponent } from './order-card/order-card.component';
+import { ManageOrdersComponent } from './Admin/manage-orders/manage-orders.component';
 
 
 @NgModule({
@@ -57,6 +61,10 @@ import { SummaryComponent } from './summary/summary.component';
     CartComponent,
     CheckoutComponent,
     SummaryComponent,
+    BookComponent,
+    OrderInvoiceComponent,
+    OrderCardComponent,
+    ManageOrdersComponent,
   ],
   imports: [
     BrowserModule,

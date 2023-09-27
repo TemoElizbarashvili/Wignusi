@@ -24,7 +24,7 @@
                 </div>
             </div>
             <p class="text-danger text-center" *ngIf="!cartLines || cartLines.length <= 0">თქვენ არ გაქვთ არაფერი კალათაში.</p>
-            <div class="back-to-shop"><a><i class="fas fa-long-arrow-alt-left"></i> </a><span class="text-muted">უკან დაბრუნება</span></div>
+            <div class="back-to-shop" [routerLink]="['/books']"><a><i class="fas fa-long-arrow-alt-left"></i> </a><span class="text-muted">უკან დაბრუნება</span></div>
         </div>
         <div class="col-md-4 summary">
             <div><h5><b>შეჯამება</b></h5></div>

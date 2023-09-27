@@ -63,7 +63,7 @@ export class CheckoutComponent implements OnInit {
 
     await this.orderService.createOrder({ body: params })
       .subscribe(_ => {
-        console.log('zd');
+        this.router.navigate(['/order-invoice']);
       },err => {
         console.log(err);
     });

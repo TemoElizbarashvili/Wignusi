@@ -10,6 +10,8 @@
         string Name,
         string Details,
         string Status,
+        string Email,
+        string Phone,
         decimal Total,
         BookQuantity[] Books
         );

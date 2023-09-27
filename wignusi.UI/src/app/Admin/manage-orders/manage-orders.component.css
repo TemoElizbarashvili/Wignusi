@@ -1,0 +1,14 @@
+.hed {
+    display: flex;
+    justify-content: center;
+    color: #084FA3 !important;
+}
+
+.list-group-item {
+    cursor: pointer;
+}
+
+.active {
+    cursor: default;
+    background-color: #084FA3;
+}

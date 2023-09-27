@@ -6,13 +6,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { BookDto } from '../../models/book-dto';
+import { BookRm } from '../../models/book-rm';
 
 export interface GetByIdBook$Plain$Params {
   id: string;
 }
 
-export function getByIdBook$Plain(http: HttpClient, rootUrl: string, params: GetByIdBook$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<BookDto>> {
+export function getByIdBook$Plain(http: HttpClient, rootUrl: string, params: GetByIdBook$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<BookRm>> {
   const rb = new RequestBuilder(rootUrl, getByIdBook$Plain.PATH, 'get');
   if (params) {
     rb.path('id', params.id, {});
@@ -23,7 +23,7 @@ export function getByIdBook$Plain(http: HttpClient, rootUrl: string, params: Get
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<BookDto>;
+      return r as StrictHttpResponse<BookRm>;
     })
   );
 }

@@ -56,11 +56,6 @@ namespace wignusi.Infrastructure.Repositories
                 .SingleOrDefault(b => b.BookId.Equals(bookid));
             if (bookToEdit != null)
             {
-                //if (bookToEdit.AuthorsLink != null && bookToEdit.AuthorsLink.Count > 0)
-                //    bookToEdit.AuthorsLink.Clear();
-                //if (bookToEdit.Tags != null && bookToEdit.Tags.Count > 0)
-                //    bookToEdit.Tags.Clear();
-
                 bookToEdit.Title = book.Title;
                 bookToEdit.Description = book.Description;
                 bookToEdit.Price = book.Price;

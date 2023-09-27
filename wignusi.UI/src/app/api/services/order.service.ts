@@ -13,6 +13,10 @@ import { createOrder } from '../fn/order/create-order';
 import { CreateOrder$Params } from '../fn/order/create-order';
 import { editOrder } from '../fn/order/edit-order';
 import { EditOrder$Params } from '../fn/order/edit-order';
+import { filterOrder } from '../fn/order/filter-order';
+import { FilterOrder$Params } from '../fn/order/filter-order';
+import { filterOrder$Plain } from '../fn/order/filter-order-plain';
+import { FilterOrder$Plain$Params } from '../fn/order/filter-order-plain';
 import { getAllOrder } from '../fn/order/get-all-order';
 import { GetAllOrder$Params } from '../fn/order/get-all-order';
 import { getAllOrder$Plain } from '../fn/order/get-all-order-plain';
@@ -119,6 +123,53 @@ export class OrderService extends BaseService {
   createOrder(params?: CreateOrder$Params, context?: HttpContext): Observable<void> {
     return this.createOrder$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `filterOrder()` */
+  static readonly FilterOrderPath = '/filter';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `filterOrder$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  filterOrder$Plain$Response(params?: FilterOrder$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderRm>>> {
+    return filterOrder$Plain(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `filterOrder$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  filterOrder$Plain(params?: FilterOrder$Plain$Params, context?: HttpContext): Observable<Array<OrderRm>> {
+    return this.filterOrder$Plain$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<OrderRm>>): Array<OrderRm> => r.body)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `filterOrder()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  filterOrder$Response(params?: FilterOrder$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderRm>>> {
+    return filterOrder(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `filterOrder$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  filterOrder(params?: FilterOrder$Params, context?: HttpContext): Observable<Array<OrderRm>> {
+    return this.filterOrder$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<OrderRm>>): Array<OrderRm> => r.body)
     );
   }
 

@@ -13,7 +13,6 @@ export class AuthGuard implements CanActivate {
         if (!token) 
             this.router.navigate([ 'login', { requestedUrl: state.url } ]);
         
-
             return true;
         
     }

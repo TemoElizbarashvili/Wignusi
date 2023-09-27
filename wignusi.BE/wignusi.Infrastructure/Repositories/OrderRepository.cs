@@ -35,16 +35,39 @@ namespace wignusi.Infrastructure.Repositories
 
         }
 
-        public async Task<List<OrderRm>> GetAllInRms()
+        public async Task<List<OrderRm>> Filter(string status)
         {
             var bookQuantities = new List<BookQuantity>();
 
-            var orderRms = await _context.Orders!.Include(o => o.Items!).Select(o => new OrderRm
+            var orderRms = await _context.Orders!.Where(o => o.Status.Equals(status)).Include(o => o.Items!).Include(o => o.User).Select(o => new OrderRm
             (
                 o.OrderId,
                 o.Name,
                 o.Details!,
                 o.Status,
+                o.User!.Email,
+                o.User.Phone,
+                o.OrderTotal,
+                o.Items!.Select(o => new BookQuantity(
+                    o.Book!.Title,
+                    o.Quantity
+            )).ToArray()
+            )).ToListAsync();
+            return orderRms!;
+        }
+
+        public async Task<List<OrderRm>> GetAllInRms()
+        {
+            var bookQuantities = new List<BookQuantity>();
+
+            var orderRms = await _context.Orders!.Include(o => o.Items!).Include(o => o.User).Select(o => new OrderRm
+            (
+                o.OrderId,
+                o.Name,
+                o.Details!,
+                o.Status,
+                o.User!.Email,
+                o.User.Phone,
                 o.OrderTotal,
                 o.Items!.Select(o => new BookQuantity(
                     o.Book!.Title,

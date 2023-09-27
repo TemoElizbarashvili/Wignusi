@@ -1,0 +1,264 @@
+.read-book-container {
+    display: flex;
+    width: 100%;
+}
+
+.read-book-card {
+    display: flex;
+    width: 60%;
+    height: fit-content;
+    margin-top: 30px;
+    
+}
+
+.small-image img {
+    width: 80px;
+    margin-right: 10px;
+}
+
+.about-book { 
+    margin-left: 20px;
+    width: 60%;
+}
+
+.about-book .mute-text {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.book-image img {
+    height: 400px;
+    margin: 0;
+}
+
+.book-info {
+    margin-right: 20px;
+    width: 100%;
+    text-align: start;
+}
+
+.book-info p.text-primary {
+    margin-top: 10px;
+}
+
+.golden-p{
+    font-weight: bold;
+    font-size: 17px;
+    color: #F29E30;
+}
+
+.book-title{
+    font-size: 22px;
+    color: #272829;
+    font-weight: bold;
+}
+
+.rate {
+    height: 20px;
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 0;
+}
+
+.rate i{ 
+    font-size: 20px;
+    padding: 2px;
+}
+
+.add-cart-container {
+    width: 26%;
+    height: 400px;
+    margin-left: 12%;
+    
+}
+
+.add-cart {
+    background-color: white;
+    padding: 10px;
+    width: 85%;
+    height: 100%;
+    border-radius: 15px;
+    margin-left: 10%;
+    box-shadow: 0 3px 10px rgba(0,0,0,.2);
+}
+
+.isAvialable {
+    background-color: #CCE8AB;
+    width: fit-content;
+    border-radius: 10px;
+    display: flex;
+    margin: 10px;
+    height: 30px;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.isAvialable i  {
+    color: rgb(4, 189, 29);
+    padding: 5px;
+}
+
+.isAvialable p {
+    padding: 5px;
+    font-size: 14px;
+}
+
+.notAvialable {
+    background-color: #ff9f9f;
+    width: fit-content;
+    border-radius: 10px;
+    display: flex;
+    margin: 10px;
+    height: 30px;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.notAvialable i {
+    color: rgb(255, 0, 0);
+    padding: 5px;
+}
+
+.notAvialable p {
+    padding: 5px;
+    font-size: 14px;
+}
+
+.price { 
+    color: #084fa3;
+    margin: 10px;
+    margin-top: 20px;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.currency {
+    font-size: 22px;
+}
+
+.price-quantity {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: baseline;
+} 
+
+.quantity-buttons{
+    display: flex;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #f5f5f5;
+    width: 30%;
+    height: 40px;
+    max-width: 120px;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.delivery p {
+    margin-top: 20px;
+    margin-bottom: 4px;
+}
+
+.delivery span  {
+    font-family: "notoMedium";
+    font-size: 13px;
+}
+
+.add-to-cart {
+    width: 100%;
+    height: fit-content;
+    background-color: #084FA3;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-top: 26%;
+}
+
+.add-to-cart i {
+    margin: auto 6px;
+}
+
+.add-to-cart p {
+    margin: auto 6px;
+}
+
+.banks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.banks img {
+    width: 50%;
+    height: fit-content;
+    padding: 15px;
+}
+
+.properties {
+    margin: 50px -100px;
+    background-color: white;
+    padding: 20px;
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.list-lists {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.list-lists ul {
+    text-decoration: none;
+    list-style: none;
+}
+
+.prop-title { 
+    font-weight: 700;
+    margin: 6px;
+} 
+
+.prop { 
+    font-size: 16px;
+    font-family: "notoMedium";
+    margin: 10px;
+}
+
+.prop-title {
+    text-align: center;
+}
+
+.prop-list-answers {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+@media screen and (max-width: 1500px) {
+    .book-image img {
+        height: 300px;
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .book-image img {
+        height: 200px;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .read-book-container {
+        display: block;
+    }
+    .add-cart-container {
+        width: 100%;
+        height: fit-content;
+        margin-left: 0;
+    }
+    .small-image {
+        display: none;
+    }
+   
+}

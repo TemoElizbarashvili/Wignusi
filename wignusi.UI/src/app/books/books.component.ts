@@ -43,8 +43,6 @@ export class BooksComponent implements OnInit, OnDestroy {
       this.params.onlyAvialables = params['onlyAvialables'];
       this.params.ganre = params['ganre'];
     });
-
-    console.log(this.params);
    
     this.bookService.getBooksForPageBook(this.params)
       .subscribe(response => {

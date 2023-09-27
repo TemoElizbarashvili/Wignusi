@@ -1,0 +1,79 @@
+<div class="read-book-container">
+    <div class="read-book-card">
+        <div class="small-image">
+            <img [src]="book.image" [alt]="book.title">
+        </div>
+        <div class="book-image">
+            <img [src]="book.image" [alt]="book.title">
+        </div>
+        <div class="about-book">
+            <div class="book-info">
+                <div class="rate mute-text">
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <p class="mute-text">({{ book.reviewsCount }} შეფასება)</p>
+                </div>
+                <p class="book-title">{{ book.title }}</p>
+                <p class="text-primary">{{ book.authorsOrdered[0] }}</p>
+            </div>
+            <p class="mute-text">{{ book.description }}</p>
+        </div>
+    </div>
+    <form class="add-cart-container" (ngSubmit)="onSubmit()">
+            <div class="add-cart">
+                <div class="isAvialable" *ngIf="book.isAvialable">
+                    <i class="fas fa-check-circle"></i>
+                    <p>მარაგშია</p>
+                </div>
+                <div class="notAvialable" *ngIf="!book.isAvialable">
+                    <i class="fas fa-times-circle"></i>
+                    <p>ამოწურულია</p>
+                </div>
+                <div class="price-quantity">
+                    <p class="price">{{ book.price }} <span class="mute-text currency">₾</span> </p>
+                    <div class="quantity-buttons">
+                        <div role="button" (click)="decrementQuantity()">
+                            <i class="fas fa-minus mute-text"></i>
+                        </div> 
+                        <div>
+                            {{ quantity }}
+                        </div> 
+                        <div role="button" (click)="incrementQuantity()">
+                            <i class="fas fa-plus mute-text"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="delivery">
+                    <p class="mute-text">მიწოდების ღირებულება</p>
+                    <span>ნორმალურ, მიტანის შუალედი: 3 დღე - ღირებულება: 3₾</span>
+                </div>
+                <button class="btn btn-primary add-to-cart" type="submit">
+                    <i class="fas fa-cart-plus"></i> <p>კალათაში დამატება</p>
+                </button>
+                <div class="banks">
+                    <img src="https://biblusi.ge/_nuxt/img/bog.da74165.png" alt="BOG">
+                    <img src="https://biblusi.ge/_nuxt/img/tbc2.922c599.png" alt="TBC">
+                </div>
+            </div>
+    </form>
+</div>
+<div class="properties">
+    <p class="title prop-title">
+        მახასიათებლები
+    </p>
+    <div class="list-lists">
+        <ul>
+            <li class="mute-text prop">გამომცემლობა</li>
+            <li class="mute-text prop">გამოშვების თარიღი</li>
+            <li class="mute-text prop">ფასდაკლება</li>
+        </ul>
+        <ul class="prop-list-answers">
+            <li class="prop-title">{{ book.publisher }}</li>
+            <li class="prop-title">{{ book.publishedOn | date }}</li>
+            <li class="prop-title">{{ book.price == book.actualPrice ? 'არ აქვს' : book.actualPrice }}</li>
+        </ul>
+    </div>
+</div>

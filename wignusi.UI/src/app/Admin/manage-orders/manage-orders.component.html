@@ -1,0 +1,30 @@
+<h2 class="text-primary hed">შეკვეთები</h2>
+<div class="filters">
+    <div class="d-flex justify-content-end">
+    <div class="p-2">
+        <ul class="list-group list-group-horizontal-sm">
+                <li class="list-group-item" 
+                [ngClass]="{'active': filter == 'Pending'}"
+                (click)="filter != 'Pending' ? onFilter('Pending') : ''">მიღებულია</li>      
+                <li class="list-group-item" 
+                [ngClass]="{'active': filter == 'Delivering'}"
+                (click)="filter != 'Delivering' ? onFilter('Delivering'): ''">გზაშია</li>
+                <li class="list-group-item" 
+                [ngClass]="{'active': filter == 'Completed'}"
+                (click)="filter != 'Completed' ? onFilter('Completed') : ''">დასრულებულია</li>
+                <li class="list-group-item" 
+                [ngClass]="{'active': filter == 'Canceled'}"
+                (click)="filter != 'Canceled' ? onFilter('Canceled') : ''">გაუქმებულია</li>
+                <li class="list-group-item" 
+                [ngClass]="{'active': filter == ''}"
+                (click)="onFilter('all')">ყველა</li>
+        </ul>
+    </div>
+</div>
+</div>
+
+<div class="order-cards">
+    <app-order-card *ngFor="let order of orders" [order]="order">
+        Loading...
+    </app-order-card>
+</div>

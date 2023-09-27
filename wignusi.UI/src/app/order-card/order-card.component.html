@@ -1,0 +1,83 @@
+<div class="order-container">
+    
+    <div class="info-items-progresbar">
+        <div class="id-price">
+           <p class="id">ID-{{ order.orderId }}</p>
+           <p class="mute-text">{{ order.total }}₾</p>
+        </div>
+        <div class="info-items">
+            <div class="items">
+                <ul class="item-names">
+                    <li *ngFor="let book of order.books">{{ book.title }}</li>
+                </ul>
+                <ul class="item-quantity">
+                    <li 
+                    *ngFor="let book of order.books"
+                    class="mute-text">
+                    X{{ book.quantity }}
+                </li>
+                </ul>
+            </div>
+            <div class="info">
+                <ul class="info-names">
+                    <li>სახელი</li>
+                    <li>მეილი</li>
+                    <li>ტელეფონის ნომერი</li>
+                    <li>მისამართი</li>
+                </ul>
+                <ul class="info-answers">
+                    <li>{{ order.name }}</li>
+                    <li>{{ order.email }}</li>
+                    <li>{{ order.phone }}</li>
+                    <li>{{ order.details }}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="progressbar-container">
+            <div id="bar-progress" class="mt-5 mt-lg-0">
+                <div class="step" [ngClass]="{'step-active': order.status == 'Pending' || order.status == 'Delivering' || order.status == 'Completed'}">
+                    <span class="number-container">
+                        <span class="number">1</span>
+                    </span>
+                    <h5>მიღებულია</h5>
+                </div>
+                <div class="seperator" [ngClass]="{'seperator-active': order.status == 'Delivering' || order.status == 'Completed'}"></div>
+                <div class="step" [ngClass]="{'step-active': order.status == 'Delivering' || order.status == 'Completed'}">
+                  <span class="number-container">
+                    <span class="number">2</span>
+                  </span>
+                  <h5>გზაშია</h5>
+                </div>
+                <div class="seperator" [ngClass]="{'seperator-active': order.status == 'Completed'}"></div>
+                <div class="step" [ngClass]="{'step-active': order.status == 'Completed'}">
+                  <span class="number-container">
+                    <span class="number">3</span>
+                  </span>
+                  <h5>დასრულებულია</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="manage-status">
+        <button *ngIf="isAdmin && order.status == 'Pending'" class="mng-btn delivering" (click)="changeStatus(order.orderId, 'Delivering')">
+            <i class="fas fa-truck"></i>
+            გაგზავნა
+        </button>
+        <button *ngIf="isAdmin && order.status == 'Delivering'" class="mng-btn complete" (click)="changeStatus(order.orderId, 'Completed')">
+            <i class="far fa-laugh-beam"></i>
+            დასრულება
+        </button>
+        <button *ngIf=" order.status == 'Completed'" class="mng-btn complete" disabled="true">
+            <i class="far fa-laugh-beam"></i>
+            დასრულებულია
+        </button>
+        <button *ngIf="order.status == 'Pending' " class="mng-btn cancel" (click)="changeStatus(order.orderId, 'Canceled')">
+            <i class="fas fa-ban"></i>
+            გაუქმება
+        </button>
+        <button *ngIf="order.status == 'Canceled'" class="mng-btn cancel" disabled="true">
+            <i class="far fa-frown-open"></i>
+            გაუქმებულია
+        </button>
+    </div>
+</div>

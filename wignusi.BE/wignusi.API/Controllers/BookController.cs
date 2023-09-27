@@ -69,27 +69,31 @@ namespace wignusi.API.Controllers
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<BookDto>> GetById(Guid id)
+        public async Task<ActionResult<BookRm>> GetById(Guid id)
         {
-            var bookList = _uow.BookRepository.GetAll();
+            var bookList = _uow.BookRepository.GetAll().Include(b => b.AuthorsLink!).ThenInclude(a => a.Author);
             var book = await bookList.FirstOrDefaultAsync(b => b.BookId == id);
 
             if (book != null)
             {
-                var bookDTo = new BookDto
-                (
-                    book.Title,
-                    book.Description,
-                    book.Image,
-                    book.Publisher!,
-                    book.PublishedOn,
-                    book.Price,
-                    book.IsAvialable,
-                    null!,
-                    null!,
-                    book.Tags!.Select(t => t.TagId).ToArray()
-                );
-                return Ok(bookDTo);
+                var bookRm = new BookRm(
+                book.BookId,
+                book.Title,
+                book.Description,
+                book.Publisher ?? "Unknown",
+                book.PublishedOn,
+                book.Price,
+                book.IsAvialable,
+                book.Promotion == null ? book.Price : book.Promotion.NewPrice,
+                book.Promotion == null ? "no Promotional text" : book.Promotion.PromotionalText,
+                book.AuthorsLink!.OrderBy(a => a.Order)
+                                .Select(a => a.Author.Name)
+                                .ToArray() ?? Array.Empty<string>(),
+                book.Tags!.Select(t => t.TagId).ToArray() ?? Array.Empty<string>(),
+                book.Reviews == null ? 0 : book.Reviews.Count(),
+                book.Image
+            );
+                return Ok(bookRm);
 
             } else
             {

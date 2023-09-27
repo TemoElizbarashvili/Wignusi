@@ -15,11 +15,15 @@ import { CartComponent } from './cart/cart.component';
 import { AuthGuard } from './Services/auth.guard';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { SummaryComponent } from './summary/summary.component';
+import { BookComponent } from './book/book.component';
+import { OrderInvoiceComponent } from './order-invoice/order-invoice.component';
+import { ManageOrdersComponent } from './Admin/manage-orders/manage-orders.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'books', component: BooksComponent },
   { path: 'books/:page', component: BooksComponent },
+  { path: 'book/:id', component: BookComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'admin/books', component: ManageBooksComponent, canActivate: [AuthGuard, AdminAuthGuard] },
@@ -28,9 +32,11 @@ const routes: Routes = [
   { path: 'admin/authors', component: ManageAuthorsComponent, canActivate: [AuthGuard, AdminAuthGuard] },
   { path: 'admin/authors/add', component: AddAuthorComponent, canActivate: [AuthGuard, AdminAuthGuard] },
   { path: 'admin/users', component: ManageUsersComponent, canActivate: [AuthGuard, AdminAuthGuard] },
+  { path: 'admin/orders', component: ManageOrdersComponent, canActivate: [AuthGuard, /*AdminAuthGuard*/] },
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
   { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
-  { path: 'summary', component: SummaryComponent, canActivate: [AuthGuard] }
+  { path: 'summary', component: SummaryComponent, canActivate: [AuthGuard] },
+  { path: 'order-invoice', component: OrderInvoiceComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

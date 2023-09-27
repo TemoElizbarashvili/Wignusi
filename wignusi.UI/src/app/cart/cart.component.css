@@ -72,7 +72,13 @@ img{
 }
 .back-to-shop{
     margin-top: 4.5rem;
+    cursor: pointer;
 }
+
+.back-to-shop:hover { 
+    color: blue;
+}
+
 h5{
     margin-top: 4vh;
 }

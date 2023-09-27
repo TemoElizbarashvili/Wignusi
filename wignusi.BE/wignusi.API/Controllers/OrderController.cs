@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using wignusi.Domain.Dtos;
 using wignusi.Domain.ReadModels;
@@ -48,6 +49,7 @@ namespace wignusi.API.Controllers
             return Ok();
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -68,6 +70,15 @@ namespace wignusi.API.Controllers
                 return Conflict(new { message = "Something went wrong, Please try again." });
             }
             return Ok();
+        }
+
+        [AllowAnonymous]
+        [HttpGet("/filter")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult<List<OrderRm>>> Filter(string status) {
+            return Ok(await _uow.OrderRepository.Filter(status));
         }
     }
 }

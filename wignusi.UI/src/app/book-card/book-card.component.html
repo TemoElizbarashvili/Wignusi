@@ -1,4 +1,4 @@
-<article class="book-article">
+<article class="book-article"  [routerLink]="['/book', book.id]">
     <img [src]="book.image" [alt]="book.title" class="overlay">
     <div class="book-card-info">
         <p class="title">{{ book.title | truncate }}</p>

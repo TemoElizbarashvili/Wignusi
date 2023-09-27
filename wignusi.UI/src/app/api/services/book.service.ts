@@ -11,7 +11,6 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { addBook } from '../fn/book/add-book';
 import { AddBook$Params } from '../fn/book/add-book';
-import { BookDto } from '../models/book-dto';
 import { BookRm } from '../models/book-rm';
 import { countOfBook } from '../fn/book/count-of-book';
 import { CountOfBook$Params } from '../fn/book/count-of-book';
@@ -244,7 +243,7 @@ export class BookService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getByIdBook$Plain$Response(params: GetByIdBook$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<BookDto>> {
+  getByIdBook$Plain$Response(params: GetByIdBook$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<BookRm>> {
     return getByIdBook$Plain(this.http, this.rootUrl, params, context);
   }
 
@@ -254,9 +253,9 @@ export class BookService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getByIdBook$Plain(params: GetByIdBook$Plain$Params, context?: HttpContext): Observable<BookDto> {
+  getByIdBook$Plain(params: GetByIdBook$Plain$Params, context?: HttpContext): Observable<BookRm> {
     return this.getByIdBook$Plain$Response(params, context).pipe(
-      map((r: StrictHttpResponse<BookDto>): BookDto => r.body)
+      map((r: StrictHttpResponse<BookRm>): BookRm => r.body)
     );
   }
 
@@ -266,7 +265,7 @@ export class BookService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getByIdBook$Response(params: GetByIdBook$Params, context?: HttpContext): Observable<StrictHttpResponse<BookDto>> {
+  getByIdBook$Response(params: GetByIdBook$Params, context?: HttpContext): Observable<StrictHttpResponse<BookRm>> {
     return getByIdBook(this.http, this.rootUrl, params, context);
   }
 
@@ -276,9 +275,9 @@ export class BookService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getByIdBook(params: GetByIdBook$Params, context?: HttpContext): Observable<BookDto> {
+  getByIdBook(params: GetByIdBook$Params, context?: HttpContext): Observable<BookRm> {
     return this.getByIdBook$Response(params, context).pipe(
-      map((r: StrictHttpResponse<BookDto>): BookDto => r.body)
+      map((r: StrictHttpResponse<BookRm>): BookRm => r.body)
     );
   }
 
