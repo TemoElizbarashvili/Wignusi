@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using wignusi.Domain.Entities;
 
 namespace wignusi.Domain.Dtos
 {
@@ -11,8 +10,8 @@ namespace wignusi.Domain.Dtos
         DateTime Published,
         [Required] decimal Price,
         [Required] bool IsAvialable,
-        AuthorDto[] authors,
-        long[] authorsIds,
+        AuthorDto[]? authors,
+        long[]? authorsIds,
         [Required] string[] tags
         );
 }

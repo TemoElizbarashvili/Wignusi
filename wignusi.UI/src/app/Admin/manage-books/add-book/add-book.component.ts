@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {  FormControl, FormGroup, Validators } from '@angular/forms';
+import {  FormControl, FormArray, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import {  AuthorDto, AuthorRm, BookDto, TagRm } from 'src/app/api/models';
@@ -36,14 +36,14 @@ export class AddBookComponent implements OnInit {
       'published': new FormControl(),
       'price': new FormControl(10, Validators.required),
       'isAvialable': new FormControl(true, Validators.required),
-      'authorId': new FormControl('', Validators.required),
+      'authorId': new FormControl(''),
+      'authors': new FormArray([]),
       'tag': new FormControl('', Validators.required)
     });
   }
 
   async onSubmit() {
     const authorId = this.bookForm.get('authorId').value;
-    let author: AuthorDto;
 
     console.log('author ID ' + this.bookForm.get('authorId').value);
     this.bookDto = {
@@ -54,18 +54,31 @@ export class AddBookComponent implements OnInit {
       published: this.bookForm.get('published').value,
       price: this.bookForm.get('price').value,
       isAvialable: this.bookForm.get('isAvialable').value,
-      authors: [author],
-      authorsIds: [authorId],
+      authors: this.bookForm.get('authors').value,
+      authorsIds: [],
       tags: [this.bookForm.get('tag').value]
     }
 
 
-    console.log('Author -' + author);
     console.log(this.bookDto);
 
     this.bookService.addBook({ body: this.bookDto })
       .subscribe(_ => {
         this.router.navigate(['/admin', 'books']);
       })
+  }
+
+
+  onAddAuthor() {
+    (<FormArray>this.bookForm.get('authors')).push(new FormGroup({
+      'name': new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(35)]),
+      'description': new FormControl(null, Validators.required),
+      'nationality': new FormControl(null, [Validators.required, Validators.minLength(2), Validators.maxLength(20)]),
+      'image': new FormControl(null, Validators.required)
+    }));
+  }
+
+  get controls() {
+    return (<FormArray>this.bookForm.get('authors')).controls;
   }
 }

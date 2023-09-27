@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService, CartService } from '../api/services';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BookRm, CartDto } from '../api/models';
+import { BookRm } from '../api/models';
 import { UserService } from '../Services/user.Service';
 import { AddCart$Params } from '../api/fn/cart/add-cart';
 
@@ -20,7 +20,7 @@ export class BookComponent implements OnInit {
      private userService: UserService,
      private router: Router) { }
 
-  ngOnInit(): void {
+    ngOnInit(): void {
     this.route.paramMap.subscribe(response => {
       this.bookId = response.get("id");
     }, err => {

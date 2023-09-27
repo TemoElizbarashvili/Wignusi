@@ -13,8 +13,8 @@ import { AuthorService, BookService, TagsService } from 'src/app/api/services';
 export class EditBookComponent implements OnInit {
   bookId: string;
   bookForm: FormGroup;
-  authors: AuthorRm[];
-  tags: TagRm[];
+  authors: AuthorRm[] = [];
+  tags: TagRm[] = [];
   bookDto: BookDto;
 
   constructor(private route: ActivatedRoute, private bookService: BookService, private authorService: AuthorService, private tagsService: TagsService) { }

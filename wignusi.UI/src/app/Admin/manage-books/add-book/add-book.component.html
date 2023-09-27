@@ -28,6 +28,33 @@
       <select id="author" class="form-select" formControlName="authorId">
         <option *ngFor="let author of authors" [value]=author.id >{{ author.name }}</option>
       </select>
+      <button type="button" class="btn btn-secondary mt-2" (click)="onAddAuthor()">ან დაამატე ახალი</button>
+      <div class="col-12" formArrayName="authors">
+        <div class="row" *ngFor="let author of controls; let i = index" [formGroupName]="i" style="margin-top: 10px;">
+
+          <hr>
+          <div class="col-md-6">
+            <label for="name" class="form-label">სრული სახელი</label>
+            <input type="text" class="form-control" id="name" formControlName="name"  placeholder="სახელი">
+          </div>
+          <div class="col-md-6">
+            <label for="nationality" class="form-label">წარმომავლობა</label>
+            <input type="text" class="form-control" id="nationality" formControlName="nationality"  placeholder="ქვეყანა">
+          </div>
+          <div class="col-12">
+            <label for="description" class="form-label">ბიოგრაფია</label>
+            <textarea cols="10" rows="3" class="form-control"  formControlName="description" ></textarea>
+          </div>
+          <div class="col-12">
+            <label for="image" class="form-label">ფოტოს ლინკი</label>
+            <input type="text" class="form-control" id="image" placeholder="სურათი" formControlName="image">
+          </div>
+         <hr>
+
+
+        </div>
+        <hr>
+     </div>
       <label for="inputState" class="form-label">ჟანრი</label>
       <select id="author" class="form-select" formControlName="tag">
         <option *ngFor="let tag of tags" [value]=tag.tag >{{ tag.tag }}</option>

@@ -239,7 +239,7 @@ namespace wignusi.Infrastructure.Repositories
                 AuthorsLink = new List<BookAuthor>(),
                 Tags = new List<Tag>()
             };
-            for (byte i = 0; i< bookDto.authorsIds.Length; i++ )
+            for (byte i = 0; i< bookDto.authorsIds?.Length; i++ )
             {
                 var author = _context.Authors.Include(a => a.BooksLink).FirstOrDefault(a => a.AuthorId == bookDto.authorsIds[i]);
                 if (author != null)
@@ -249,6 +249,22 @@ namespace wignusi.Infrastructure.Repositories
                         Author = author,
                         Order = i
                     });
+            }
+            for (byte i = 0; i < bookDto.authors?.Length; i++)
+            {
+                var author = new Author
+                {
+                    Description = bookDto.authors[i].Description,
+                    Name = bookDto.authors[i].Name,
+                    Image = bookDto.authors[i].Image,
+                    Nationality = bookDto.authors[i].Nationality
+                };
+                book.AuthorsLink.Add(new BookAuthor
+                {
+                    Book = book,
+                    Author = author,
+                    Order = i
+                });
             }
             foreach (var tag in bookDto.tags)
             {
