@@ -123,7 +123,7 @@ export class HomeComponent {
   }
 
   onShowMeBestSellers() {
-    this.router.navigate(['books' , '?ganre=ბესტსელერი']);
+    this.router.navigate(['books'], { queryParams: {ganre: 'ბესტსელერი'} });
   }
 
   onShowBooks() {

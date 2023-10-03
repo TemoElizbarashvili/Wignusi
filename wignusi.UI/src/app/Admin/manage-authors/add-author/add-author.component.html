@@ -1,19 +1,27 @@
 <form class="row g-3" [formGroup]="authorForm" (ngSubmit)="onSubmit()">
     <div class="col-md-6">
-      <label for="inputEmail4" class="form-label">სახელი</label>
-      <input type="text" class="form-control" id="name" formControlName="name"  placeholder="ავტორის სახელი">
+      <label for="name" class="form-label">სახელი</label>
+      <input type="text" class="form-control" id="name" formControlName="name" placeholder="ავტორის სახელი">
+      <span class="help-block text-danger" *ngIf="!authorForm.get('name').valid && authorForm.get('name').touched">ავტორის სახელი აუცილებელია და უნდა იყოს არანაკლებ 2 და არა უმეტეს 35 ასოთი შემდგარი</span>
+
     </div>
     <div class="col-12">
       <label for="description" class="form-label">აღწერა</label>
       <textarea cols="10" rows="10" class="form-control"  formControlName="description" ></textarea>
+      <span class="help-block text-danger" *ngIf="!authorForm.get('description').valid && authorForm.get('description').touched">აღწერა აუცილებელია</span>
+
     </div>
     <div class="col-12">
       <label for="inputAddress2" class="form-label">ფოტოს ლინკი</label>
       <input type="text" class="form-control" id="image" placeholder="სურათი" formControlName="image">
+      <span class="help-block text-danger" *ngIf="!authorForm.get('image').valid && authorForm.get('image').touched">ფოტო აუცილებელია</span>
+
     </div>
     <div class="col-md-6">
         <label for="inputEmail4" class="form-label">წარმოშობა</label>
         <input type="text" class="form-control" id="nationality" formControlName="nationality"  placeholder="წარმოშობა">
+      <span class="help-block text-danger" *ngIf="!authorForm.get('nationality').valid && authorForm.get('nationality').touched">წარმოშობა აუცილებელია</span>
+
     </div>
     <div class="col-12">
       <button type="submit" class="btn btn-success">დამატება</button>

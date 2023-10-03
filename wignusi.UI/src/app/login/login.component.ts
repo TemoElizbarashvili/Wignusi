@@ -15,6 +15,7 @@ export class LoginComponent implements OnInit {
     email: '',
     password: ''
   }
+  isValid = true;
 
   constructor(private authService: AuthService, private router: Router, private userService: UserService, private route: ActivatedRoute) { }
 
@@ -28,8 +29,11 @@ export class LoginComponent implements OnInit {
   }
 
   login(user: UserDto) {
-    this.userService.login(user);  
-    this.router.navigate([this.requestedUrl ?? '']);
+    this.isValid = this.userService.login(user, this.requestedUrl);
+    if(!this.isValid) { 
+      this.user.email = '';
+      this.user.password = '';
+    }
   }
 
 }

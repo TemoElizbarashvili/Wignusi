@@ -21,6 +21,10 @@ import { getAllOrder } from '../fn/order/get-all-order';
 import { GetAllOrder$Params } from '../fn/order/get-all-order';
 import { getAllOrder$Plain } from '../fn/order/get-all-order-plain';
 import { GetAllOrder$Plain$Params } from '../fn/order/get-all-order-plain';
+import { getWithUserIdOrder } from '../fn/order/get-with-user-id-order';
+import { GetWithUserIdOrder$Params } from '../fn/order/get-with-user-id-order';
+import { getWithUserIdOrder$Plain } from '../fn/order/get-with-user-id-order-plain';
+import { GetWithUserIdOrder$Plain$Params } from '../fn/order/get-with-user-id-order-plain';
 import { OrderRm } from '../models/order-rm';
 
 @Injectable({ providedIn: 'root' })
@@ -123,6 +127,53 @@ export class OrderService extends BaseService {
   createOrder(params?: CreateOrder$Params, context?: HttpContext): Observable<void> {
     return this.createOrder$Response(params, context).pipe(
       map((r: StrictHttpResponse<void>): void => r.body)
+    );
+  }
+
+  /** Path part for operation `getWithUserIdOrder()` */
+  static readonly GetWithUserIdOrderPath = '/user/orders';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getWithUserIdOrder$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getWithUserIdOrder$Plain$Response(params?: GetWithUserIdOrder$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderRm>>> {
+    return getWithUserIdOrder$Plain(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getWithUserIdOrder$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getWithUserIdOrder$Plain(params?: GetWithUserIdOrder$Plain$Params, context?: HttpContext): Observable<Array<OrderRm>> {
+    return this.getWithUserIdOrder$Plain$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<OrderRm>>): Array<OrderRm> => r.body)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getWithUserIdOrder()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getWithUserIdOrder$Response(params?: GetWithUserIdOrder$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<OrderRm>>> {
+    return getWithUserIdOrder(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getWithUserIdOrder$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getWithUserIdOrder(params?: GetWithUserIdOrder$Params, context?: HttpContext): Observable<Array<OrderRm>> {
+    return this.getWithUserIdOrder$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<OrderRm>>): Array<OrderRm> => r.body)
     );
   }
 

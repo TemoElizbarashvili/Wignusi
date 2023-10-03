@@ -90,10 +90,23 @@ namespace wignusi.Infrastructure.Repositories
             return _context.Orders.ToListAsync();
         }
 
-        public Task<List<Order>> GetUserOrders(int userId)
+        public async Task<List<OrderRm>> GetUserOrders(int userId)
         {
-            var orders = _context.Orders.Where(o => o.UserId == userId);
-            return orders.ToListAsync();
+            var orders = await _context.Orders.Include(o => o.Items!).ThenInclude(o => o.Book).Where(o => o.UserId == userId).Select(o => new OrderRm
+            (
+                o.OrderId,
+                o.Name,
+                o.Details!,
+                o.Status,
+                o.User!.Email,
+                o.User.Phone,
+                o.OrderTotal,
+                o.Items!.Select(o => new BookQuantity(
+                    o.Book!.Title,
+                    o.Quantity
+            )).ToArray()
+            )).ToListAsync();
+            return orders;
         }
 
         public async Task<Order> MapDtoToOrder(OrderDto dto)

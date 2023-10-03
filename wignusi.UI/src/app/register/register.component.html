@@ -2,23 +2,28 @@
   <h3 class="title">რეგისტრაცია</h3>
   <form (ngSubmit)="regiser(user)" #registerForm>
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" placeholder="მაგ. Temo" name="username" [(ngModel)]="user.username" required>
+        <input type="text" class="form-control" placeholder="მაგ. Temo" name="username" [(ngModel)]="user.username" required #username="ngModel">
         <label for="floatingInput">მომხმარებელის სახელი</label>
+        <span class="help-block text-danger" *ngIf="!username.valid && username.touched"> *მომხმარებლის სახელი სავალდებულოა</span>
+
       </div>
       <div class="form-floating mb-3">
-        <input type="email" class="form-control" placeholder="მაგ. Temo@gmail.com" name="email" [(ngModel)]="user.emailAddress"required email>
+        <input type="email" class="form-control" placeholder="მაგ. Temo@gmail.com" name="email" id="email" [(ngModel)]="user.emailAddress" required email #email="ngModel">
         <label for="floatingInput">მეილი</label>
+        <span class="help-block text-danger" *ngIf="!email.valid && email.touched"> *მეილი არასწორია</span>
       </div>
       <div class="form-floating mb-3">
-        <input type="text" class="form-control" placeholder="მაგ. 571127701" name="phone" [(ngModel)]="user.phone" required >
+        <input type="text" class="form-control" placeholder="მაგ. 571127701" name="phone" [(ngModel)]="user.phone" required #phone="ngModel">
         <label for="floatingInput">ტელეფონის ნომერი</label>
+        <span class="help-block text-danger" *ngIf="!phone.valid && phone.touched"> *მობილურის ნომერი სავალდებულოა</span>
       </div>
       <div class="form-floating">
-        <input type="password" class="form-control" placeholder="Password" name="password" [(ngModel)]="user.password" required>
+        <input type="password" class="form-control" placeholder="Password" name="password" [(ngModel)]="user.password" required #password="ngModel">
         <label for="floatingPassword">პაროლი</label>
+        <span class="help-block text-danger" *ngIf="!password.valid && password.touched"> *პაროლი სავალდებულოა</span>
       </div>
       <div class="navigate-auth">
-        <button class="btn btn-primary" type="submit">
+        <button class="btn btn-primary" type="submit" [disabled]="!password.valid || !phone.valid || !email.valid || !username.valid">
             რეგისტრაცია
         </button>
         <button class="btn btn-light" [routerLink]="['/login']" type="button">

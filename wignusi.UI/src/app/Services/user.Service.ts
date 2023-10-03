@@ -3,6 +3,7 @@ import { Subject } from "rxjs";
 
 import { LoginDto, UserDto } from "../api/models";
 import { AuthService } from "../api/services";
+import { Router } from "@angular/router";
 
 @Injectable({providedIn: 'root'})
 export class UserService implements OnInit{ 
@@ -11,8 +12,9 @@ export class UserService implements OnInit{
     currentEmail: string; 
     userId: number;
     Role: string = 'Customer';
+    isValid = true;
 
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService, private router: Router) { }
  
     ngOnInit(): void {
       
@@ -48,18 +50,25 @@ export class UserService implements OnInit{
       this.login(loginDto);
     }
 
-    login(user: LoginDto) {
+    login(user: LoginDto, requestedUrl?: string) : boolean {
       this.authService.loginAuth({ body: user })
         .subscribe(response => {
-          localStorage.setItem("authToken", response.token);
-          localStorage.setItem("role", response.role);
-          localStorage.setItem("ID", response.id.toString());
-          this.Role = response.role;
-          this.setEmail(user.email);
-          this.userId = response.id;
-          response.role === "Admin" ? this.isAdmin$.next(true) : this.isAdmin$.next(false);
-        }, err => {
-          console.log(err.value);
+          if (response) { 
+            localStorage.setItem("authToken", response.token);
+            localStorage.setItem("role", response.role);
+            localStorage.setItem("ID", response.id.toString());
+            this.Role = response.role;
+            this.setEmail(user.email);
+            this.userId = response.id;
+            response.role === "Admin" ? this.isAdmin$.next(true) : this.isAdmin$.next(false);
+            this.router.navigate([requestedUrl ?? '']);
+            return true;
+          } else { 
+            return false;
+          }
+          }, err => {
+            return false;
         });
+        return false;
     }
 }

@@ -2,22 +2,30 @@
     <div class="col-md-6">
       <label for="inputEmail4" class="form-label">სათაური</label>
       <input type="text" class="form-control" id="title" formControlName="title"  placeholder="წიგნი">
+      <span class="help-block text-danger" *ngIf="!bookForm.get('title').valid && bookForm.get('title').touched">სათაური აუცილებელია!</span>
     </div>
     <div class="col-md-6">
       <label for="inputPassword4" class="form-label">ფასი</label>
       <input type="number" class="form-control" id="price" formControlName="price"  placeholder="99.99">
+      <span class="help-block text-danger" *ngIf="!bookForm.get('price').valid && bookForm.get('price').touched">ფასი უნდა იყოს 0-ზე მეტი!</span>
     </div>
     <div class="col-12">
       <label for="description" class="form-label">აღწერა</label>
       <textarea cols="10" rows="10" class="form-control"  formControlName="description" ></textarea>
+      <span class="help-block text-danger" *ngIf="!bookForm.get('description').valid && bookForm.get('description').touched">აღწერა სავალდებულოა!</span>
+
     </div>
     <div class="col-12">
       <label for="inputAddress2" class="form-label">ფოტოს ლინკი</label>
       <input type="text" class="form-control" id="image" placeholder="სურათი" formControlName="image">
+      <span class="help-block text-danger" *ngIf="!bookForm.get('image').valid && bookForm.get('image').touched">ფოტო სავალდებულოა!</span>
+      
     </div>
     <div class="col-md-6">
         <label for="inputEmail4" class="form-label">გამომცემელი</label>
         <input type="text" class="form-control" id="publisher" formControlName="publisher"  placeholder="გამომცემელი">
+      <span class="help-block text-danger" *ngIf="!bookForm.get('publisher').valid && bookForm.get('publisher').touched">შეიყვანეთ გამომცემელი!</span>
+
       </div>
       <div class="col-md-6">
         <label for="inputPassword4" class="form-label">გამომცემის თარიღი</label>
@@ -56,9 +64,27 @@
         <hr>
      </div>
       <label for="inputState" class="form-label">ჟანრი</label>
-      <select id="author" class="form-select" formControlName="tag">
+      <select id="author" class="form-select" formControlName="tags">
         <option *ngFor="let tag of tags" [value]=tag.tag >{{ tag.tag }}</option>
       </select>
+      <button type="button" class="btn btn-secondary mt-2" (click)="onAddTag()">ან დაამატე ახალი</button>
+      <div class="col-12" formArrayName="authors">
+        <div class="row" *ngFor="let tag of tagControls; let i = index" [formGroupName]="i" style="margin-top: 10px;">
+
+          <hr>
+          <div class="col-md-6">
+            <label for="tag" class="form-label">ჟანრი</label>
+            <input type="text" class="form-control" id="tag" formControlName="tag"  placeholder="ჟანრი">
+          </div>
+          
+         <hr>
+
+
+        </div>
+        <hr>
+     </div>
+
+
       <div class="col-md-6 mt-2">
           <input type="checkbox" formControlName="isAvialable" value='true' class="form-checkbox">
           <label for="isAvialable" class="m-2">მისაწვდომია</label>

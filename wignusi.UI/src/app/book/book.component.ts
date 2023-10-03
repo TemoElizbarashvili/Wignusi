@@ -54,14 +54,14 @@ export class BookComponent implements OnInit {
       const params: AddCart$Params = {
         body: {
           bookId: this.bookId,
-          quantity: 1,
+          quantity: this.quantity,
           userId: userId
         }
       };
       this.cartService.addCart(params)
       .subscribe(_ => {});
     } else {
-      this.router.navigate(['login', { requestedUrl: this.router.url }])
+      this.router.navigate(['login', { requestedUrl: this.router.url }]);
     }
   }
 

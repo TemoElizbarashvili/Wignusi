@@ -18,6 +18,8 @@ import { SummaryComponent } from './summary/summary.component';
 import { BookComponent } from './book/book.component';
 import { OrderInvoiceComponent } from './order-invoice/order-invoice.component';
 import { ManageOrdersComponent } from './Admin/manage-orders/manage-orders.component';
+import { UserOrdersComponent } from './cart/user-orders/user-orders.component';
+import { EditAuthorComponent } from './Admin/manage-authors/edit-author/edit-author.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -30,10 +32,12 @@ const routes: Routes = [
   { path: 'admin/books/add', component: AddBookComponent, canActivate: [AuthGuard, AdminAuthGuard] },
   { path: 'admin/books/edit/:id', component: EditBookComponent, canActivate: [AuthGuard, AdminAuthGuard] },
   { path: 'admin/authors', component: ManageAuthorsComponent, canActivate: [AuthGuard, AdminAuthGuard] },
+  { path: 'admin/authors/edit/:id', component: EditAuthorComponent, canActivate: [AuthGuard, AdminAuthGuard] },
   { path: 'admin/authors/add', component: AddAuthorComponent, canActivate: [AuthGuard, AdminAuthGuard] },
   { path: 'admin/users', component: ManageUsersComponent, canActivate: [AuthGuard, AdminAuthGuard] },
   { path: 'admin/orders', component: ManageOrdersComponent, canActivate: [AuthGuard, /*AdminAuthGuard*/] },
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },
+  { path: 'myorders', component: UserOrdersComponent, canActivate: [AuthGuard] },
   { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
   { path: 'summary', component: SummaryComponent, canActivate: [AuthGuard] },
   { path: 'order-invoice', component: OrderInvoiceComponent, canActivate: [AuthGuard] }

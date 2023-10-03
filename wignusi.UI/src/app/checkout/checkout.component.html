@@ -36,11 +36,15 @@
             <div class="col-md-6 mb-3">
               <label for="firstName">სრული სახელი</label>
               <input type="text" class="form-control" id="firstName" placeholder="სახელი და გვარი" formControlName="name">
+              <span class="help-block text-danger" *ngIf="!orderForm.get('name').valid && orderForm.get('name').touched">გთხოვთ შეიყვანოთ თქვენი სახელი</span>
+
             </div>
           </div>
           <div class="mb-3">
             <label for="address">მისამართი</label>
             <input type="text" class="form-control" id="address" placeholder="საბურთალო 3, ბინა 23" formControlName="details">
+            <span class="help-block text-danger" *ngIf="!orderForm.get('details').valid && orderForm.get('details').touched">გთხოვთ შეიყვანოთ თქვენი მისამართი</span>
+
           </div>
           <hr class="mb-4">
           <hr class="mb-4">

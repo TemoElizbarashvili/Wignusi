@@ -34,11 +34,11 @@ export class AddBookComponent implements OnInit {
       'image': new FormControl('', Validators.required),
       'publisher': new FormControl(),
       'published': new FormControl(),
-      'price': new FormControl(10, Validators.required),
+      'price': new FormControl(10, [Validators.required, Validators.min(0)]),
       'isAvialable': new FormControl(true, Validators.required),
       'authorId': new FormControl(''),
       'authors': new FormArray([]),
-      'tag': new FormControl('', Validators.required)
+      'tags': new FormArray([], Validators.required)
     });
   }
 
@@ -56,7 +56,7 @@ export class AddBookComponent implements OnInit {
       isAvialable: this.bookForm.get('isAvialable').value,
       authors: this.bookForm.get('authors').value,
       authorsIds: [],
-      tags: [this.bookForm.get('tag').value]
+      tags: this.bookForm.get('tags').value
     }
 
 
@@ -78,7 +78,17 @@ export class AddBookComponent implements OnInit {
     }));
   }
 
+  onAddTag() {
+    (<FormArray>this.bookForm.get('tags')).push(new FormGroup({
+      'tag': new FormControl(null, Validators.required)
+    }));
+  }
+
   get controls() {
     return (<FormArray>this.bookForm.get('authors')).controls;
+  }
+
+  get tagControls() {
+    return (<FormArray>this.bookForm.get('tags')).controls;
   }
 }

@@ -1,6 +1,9 @@
 <div class="login-form">
   <h3 class="title">ავტორიზაცია</h3>
   <form (ngSubmit)="login(user)">
+    <div *ngIf="!isValid">
+      <span class="help-block text-danger"> * პაროლი ან მეილი არასწორია, სცადეთ ხელახლა</span>
+    </div>
     <div class="form-floating mb-3">
         <input type="email" class="form-control" placeholder="მაგ. Temo" name="email" [(ngModel)]="user.email">
         <label for="floatingInput">მომხმარებელი</label>

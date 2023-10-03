@@ -1,3 +1,4 @@
+<button class="btn btn-outline-secondary" [routerLink]="['/myorders']">ჩემი შეკვეთები</button>
 <div class="card">
     <div class="row">
         <div class="col-md-8 cart">
@@ -16,11 +17,13 @@
                         <div class="row">{{ line.bookTitle }}</div>
                     </div>
                     <div class="col-3 col-sm-2 col-lg-3 manage-quantity">
-                        <i class="fa-solid fa-square-minus" style="color: red; font-size: 20px; margin:auto 4px" (click)="decrementCount(line.cartId)"></i>
+                        <i class="fa-solid fa-square-minus" style="cursor: pointer; color: red; font-size: 20px; margin:auto 4px" (click)="decrementCount(line.cartId)"></i>
                         <p class="quantity">| {{ line.quantity }} |</p>
-                        <i class="fa-solid fa-square-plus" style="color: green; font-size: 20px;  margin:auto 4px" (click)="incrementCount(line.cartId)"></i>
+                        <i class="fa-solid fa-square-plus" style="cursor: pointer; color: green; font-size: 20px;  margin:auto 4px" (click)="incrementCount(line.cartId)"></i>
                     </div>
-                    <div class="col">₾ {{ calculateLinePrice(line.bookPrice, line.quantity) }} <span class="close"><i class="fas fa-trash"></i></span></div>
+                    <div class="col">₾ {{ calculateLinePrice(line.bookPrice, line.quantity) }} <span class="close">
+                        <i class="fas fa-trash mx-2" style="cursor: pointer; color: red; font-size: 16px; margin:auto 4px" (click)="deleteItem(line.cartId)"></i>
+                    </span></div>
                 </div>
             </div>
             <p class="text-danger text-center" *ngIf="!cartLines || cartLines.length <= 0">თქვენ არ გაქვთ არაფერი კალათაში.</p>

@@ -1,43 +1,88 @@
 <form class="row g-3" [formGroup]="bookForm" (ngSubmit)="onSubmit()">
-    <div class="col-md-6">
-      <label for="inputEmail4" class="form-label">სათაური</label>
-      <input type="text" class="form-control" id="title" formControlName="title"  placeholder="წიგნი">
+  <div class="col-md-6">
+    <label for="inputEmail4" class="form-label">სათაური</label>
+    <input type="text" class="form-control" id="title" formControlName="title"  placeholder="წიგნი">
+  </div>
+  <div class="col-md-6">
+    <label for="inputPassword4" class="form-label">ფასი</label>
+    <input type="number" class="form-control" id="price" formControlName="price"  placeholder="99.99">
+  </div>
+  <div class="col-12">
+    <label for="description" class="form-label">აღწერა</label>
+    <textarea cols="10" rows="10" class="form-control"  formControlName="description" ></textarea>
+  </div>
+  <div class="col-12">
+    <label for="inputAddress2" class="form-label">ფოტოს ლინკი</label>
+    <input type="text" class="form-control" id="image" placeholder="სურათი" formControlName="image">
+  </div>
+  <div class="col-md-6">
+      <label for="inputEmail4" class="form-label">გამომცემელი</label>
+      <input type="text" class="form-control" id="publisher" formControlName="publisher"  placeholder="გამომცემელი">
     </div>
     <div class="col-md-6">
-      <label for="inputPassword4" class="form-label">ფასი</label>
-      <input type="number" class="form-control" id="price" formControlName="price"  placeholder="99.99">
+      <label for="inputPassword4" class="form-label">გამომცემის თარიღი</label>
+      <input type="date" class="form-control" id="published" formControlName="published"  placeholder="dd/mm/yyy">
     </div>
-    <div class="col-12">
-      <label for="description" class="form-label">აღწერა</label>
-      <textarea cols="10" rows="10" class="form-control"  formControlName="description" ></textarea>
-    </div>
-    <div class="col-12">
-      <label for="inputAddress2" class="form-label">ფოტოს ლინკი</label>
-      <input type="text" class="form-control" id="image" placeholder="სურათი" formControlName="image">
-    </div>
-    <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">გამომცემელი</label>
-        <input type="text" class="form-control" id="publisher" formControlName="publisher"  placeholder="გამომცემელი">
-      </div>
-      <div class="col-md-6">
-        <label for="inputPassword4" class="form-label">გამომცემის თარიღი</label>
-        <input type="date" class="form-control" id="published" formControlName="published"  placeholder="dd/mm/yyy">
-      </div>
-    <div class="col-md-4">
-      <label for="inputState" class="form-label">ავტორი</label>
-      <select id="author" class="form-select" formControlName="authorId">
-        <option *ngFor="let author of authors" [value]=author.id >{{ author.name }}</option>
-      </select>
-      <label for="inputState" class="form-label">ჟანრი</label>
-      <select id="author" class="form-select" formControlName="tag">
-        <option *ngFor="let tag of tags" [value]=tag.tag >{{ tag.tag }}</option>
-      </select>
-      <div class="col-md-6 mt-2">
-          <input type="checkbox" formControlName="isAvialable" value='true' class="form-checkbox">
-          <label for="isAvialable" class="m-2">მისაწვდომია</label>
+  <div class="col-md-4">
+    <label for="inputState" class="form-label">ავტორი</label>
+    <select id="author" class="form-select" formControlName="authorId">
+      <option *ngFor="let author of authors" [value]=author.id >{{ author.name }}</option>
+    </select>
+    <button type="button" class="btn btn-secondary mt-2" (click)="onAddAuthor()">ან დაამატე ახალი</button>
+    <div class="col-12" formArrayName="authors">
+      <div class="row" *ngFor="let author of controls; let i = index" [formGroupName]="i" style="margin-top: 10px;">
+
+        <hr>
+        <div class="col-md-6">
+          <label for="name" class="form-label">სრული სახელი</label>
+          <input type="text" class="form-control" id="name" formControlName="name"  placeholder="სახელი">
         </div>
-    </div>
-    <div class="col-12">
-      <button type="submit" class="btn btn-success">დამატება</button>
-    </div>
+        <div class="col-md-6">
+          <label for="nationality" class="form-label">წარმომავლობა</label>
+          <input type="text" class="form-control" id="nationality" formControlName="nationality"  placeholder="ქვეყანა">
+        </div>
+        <div class="col-12">
+          <label for="description" class="form-label">ბიოგრაფია</label>
+          <textarea cols="10" rows="3" class="form-control"  formControlName="description" ></textarea>
+        </div>
+        <div class="col-12">
+          <label for="image" class="form-label">ფოტოს ლინკი</label>
+          <input type="text" class="form-control" id="image" placeholder="სურათი" formControlName="image">
+        </div>
+       <hr>
+
+
+      </div>
+      <hr>
+   </div>
+    <label for="inputState" class="form-label">ჟანრი</label>
+    <select id="author" class="form-select" formControlName="tag">
+      <option *ngFor="let tag of tags" [value]=tag.tag >{{ tag.tag }}</option>
+    </select>
+    <button type="button" class="btn btn-secondary mt-2" (click)="onAddTag()">ან დაამატე ახალი</button>
+    <div class="col-12" formArrayName="authors">
+      <div class="row" *ngFor="let tag of tagControls; let i = index" [formGroupName]="i" style="margin-top: 10px;">
+
+        <hr>
+        <div class="col-md-6">
+          <label for="tags" class="form-label">ჟანრი</label>
+          <input type="text" class="form-control" id="tag" formControlName="tags"  placeholder="ჟანრი">
+        </div>
+        
+       <hr>
+
+
+      </div>
+      <hr>
+   </div>
+
+
+    <div class="col-md-6 mt-2">
+        <input type="checkbox" formControlName="isAvialable" value='true' class="form-checkbox">
+        <label for="isAvialable" class="m-2">მისაწვდომია</label>
+      </div>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-success">დამატება</button>
+  </div>
 </form>

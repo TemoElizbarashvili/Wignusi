@@ -23,7 +23,7 @@
               <td>
                 <div class="actions-container">
                     <a class="table-actions"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a class="table-actions"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    <a class="table-actions"><i class="fa fa-pencil" aria-hidden="true" [routerLink]="['edit', author.id]" ></i></a>
                     <a class="table-actions" (click)="onDeleteAuthor(author.id)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                 </div>
               </td>

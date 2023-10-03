@@ -19,6 +19,7 @@ namespace wignusi.API.Controllers
             _uow = uow;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
@@ -28,7 +29,23 @@ namespace wignusi.API.Controllers
             return Ok(await _uow.OrderRepository.GetAllInRms());
         }
 
+        [Authorize]
+        [HttpGet("/user/orders")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult<List<OrderRm>>> GetWithUserId(int userId)
+        {
+            var list = await _uow.OrderRepository.GetUserOrders(userId);
+            if (list is null)
+                return NotFound();
+            return Ok(list);
+        }
 
+
+
+        [Authorize]
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
@@ -72,7 +89,7 @@ namespace wignusi.API.Controllers
             return Ok();
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         [HttpGet("/filter")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]

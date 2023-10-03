@@ -76,6 +76,13 @@ export class CartComponent implements OnInit, OnDestroy {
     }
   }
 
+  deleteItem(cartId: number) {
+    this.cartService.deleteLineCart({cartId: cartId})
+    .subscribe(() => {
+      this.cartLines = this.cartLines.filter(c => c.cartId != cartId);
+    });
+  }
+
   async ngOnDestroy(): Promise<void> {
     this.cartLines.forEach( async c => {
       await this.cartService.editCart({ cartId: c.cartId, quantity: c.quantity }).
@@ -84,4 +91,7 @@ export class CartComponent implements OnInit, OnDestroy {
         });
     })
   }
+
+
+ 
 }

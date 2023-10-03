@@ -152,6 +152,15 @@ input.ng-valid.ng-touched {
     color: white;
 }
 
+.back-to-shop{
+    margin-top: 4.5rem;
+    cursor: pointer;
+}
+
+.back-to-shop:hover { 
+    color: blue;
+}
+
 /* ----------------------Icons------------------ */
 .material-symbols-outlined {
   font-variation-settings:
