@@ -177,10 +177,23 @@ namespace wignusi.API.Controllers
             }
             return Ok();
         }
-    
-    
-    
-    
+
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("/bookDto")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(409)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult<BookDto>> GetDtoOf(Guid id)
+        { 
+            var book = await _uow.BookRepository.GetBookDto(id);
+            if (book == null)
+                return NotFound();
+            return Ok(book);
+        }
+
     }
 }
 

@@ -15,6 +15,7 @@ namespace wignusi.Domain.Repository_Contracts
         public IQueryable<Book> GetAll();
         public IQueryable<BookRm> GetAllInRm();
         public IEnumerable<BookRm> MapToBookRm(IQueryable<Book> books);
+        public Task<BookDto> GetBookDto(Guid bookid);
         public Task<Book> GetByIdAsync(Guid id);
         public Book GetById(Guid id);
         public Task CreateBookAsync(Book book);

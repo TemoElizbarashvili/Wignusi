@@ -277,5 +277,29 @@ namespace wignusi.Infrastructure.Repositories
             }
             return book;
         }
+
+        public async Task<BookDto> GetBookDto(Guid bookid)
+        {
+            var book = await _context.Books.Include(b => b.AuthorsLink!).ThenInclude(b => b.Author)
+                                            .Include(b => b.Tags).FirstOrDefaultAsync(b => b.BookId.Equals(bookid));
+            if (book != null)
+            {
+                var bookDto = new BookDto(
+                    book!.Title,
+                    book!.Description,
+                    book!.Image,
+                    book.Publisher!,
+                    book!.PublishedOn,
+                    book!.Price,
+                    book!.IsAvialable,
+                    null,
+                    book!.AuthorsLink!.Select(a => a.AuthorId).ToArray(),
+                    book!.Tags!.Select(t => t.TagId).ToArray()
+                        );
+                return bookDto;
+            }
+            return null!;
+
+        }
     }
 }

@@ -11,6 +11,7 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { addBook } from '../fn/book/add-book';
 import { AddBook$Params } from '../fn/book/add-book';
+import { BookDto } from '../models/book-dto';
 import { BookRm } from '../models/book-rm';
 import { countOfBook } from '../fn/book/count-of-book';
 import { CountOfBook$Params } from '../fn/book/count-of-book';
@@ -32,6 +33,10 @@ import { getByIdBook } from '../fn/book/get-by-id-book';
 import { GetByIdBook$Params } from '../fn/book/get-by-id-book';
 import { getByIdBook$Plain } from '../fn/book/get-by-id-book-plain';
 import { GetByIdBook$Plain$Params } from '../fn/book/get-by-id-book-plain';
+import { getDtoOfBook } from '../fn/book/get-dto-of-book';
+import { GetDtoOfBook$Params } from '../fn/book/get-dto-of-book';
+import { getDtoOfBook$Plain } from '../fn/book/get-dto-of-book-plain';
+import { GetDtoOfBook$Plain$Params } from '../fn/book/get-dto-of-book-plain';
 import { searchBook } from '../fn/book/search-book';
 import { SearchBook$Params } from '../fn/book/search-book';
 import { searchBook$Plain } from '../fn/book/search-book-plain';
@@ -350,6 +355,53 @@ export class BookService extends BaseService {
   countOfBook(params?: CountOfBook$Params, context?: HttpContext): Observable<number> {
     return this.countOfBook$Response(params, context).pipe(
       map((r: StrictHttpResponse<number>): number => r.body)
+    );
+  }
+
+  /** Path part for operation `getDtoOfBook()` */
+  static readonly GetDtoOfBookPath = '/bookDto';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getDtoOfBook$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getDtoOfBook$Plain$Response(params?: GetDtoOfBook$Plain$Params, context?: HttpContext): Observable<StrictHttpResponse<BookDto>> {
+    return getDtoOfBook$Plain(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getDtoOfBook$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getDtoOfBook$Plain(params?: GetDtoOfBook$Plain$Params, context?: HttpContext): Observable<BookDto> {
+    return this.getDtoOfBook$Plain$Response(params, context).pipe(
+      map((r: StrictHttpResponse<BookDto>): BookDto => r.body)
+    );
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getDtoOfBook()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getDtoOfBook$Response(params?: GetDtoOfBook$Params, context?: HttpContext): Observable<StrictHttpResponse<BookDto>> {
+    return getDtoOfBook(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getDtoOfBook$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getDtoOfBook(params?: GetDtoOfBook$Params, context?: HttpContext): Observable<BookDto> {
+    return this.getDtoOfBook$Response(params, context).pipe(
+      map((r: StrictHttpResponse<BookDto>): BookDto => r.body)
     );
   }
 

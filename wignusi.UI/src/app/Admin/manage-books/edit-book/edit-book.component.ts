@@ -1,5 +1,6 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import {  FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import {  FormArray, FormControl, FormGroup, PatternValidator, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import { AuthorRm, BookDto, BookRm, TagRm } from 'src/app/api/models';
@@ -12,10 +13,21 @@ import { AuthorService, BookService, TagsService } from 'src/app/api/services';
 })
 export class EditBookComponent implements OnInit {
   bookId: string;
-  bookForm: FormGroup;
+  bookForm: FormGroup = new FormGroup({
+    'title': new FormControl(),
+    'description': new FormControl(),
+    'image': new FormControl(),
+    'publisher': new FormControl(),
+    'published': new FormControl(),
+    'price': new FormControl(),
+    'isAvialable': new FormControl(),
+    'authorId': new FormControl(),
+    'authors': new FormArray([]),
+    'tags': new FormArray([])
+  });
   authors: AuthorRm[];
-  tags: TagRm[];
-  bookDto: BookRm;
+  allTags: TagRm[];
+  bookDto: BookDto;
 
   constructor(private route: ActivatedRoute, private bookService: BookService, private authorService: AuthorService, private tagsService: TagsService) { }
 
@@ -26,41 +38,61 @@ export class EditBookComponent implements OnInit {
     });
 
     
-    // this.authorService.getAllAuthor()
-    //   .subscribe(  response => {
-    //     this.authors =  response
-    //   });
+    this.authorService.getAllAuthor()
+      .subscribe(  response => {
+        this.authors =  response
+      });
 
-    // this.tagsService.getAllTags()
-    //   .subscribe(response => {
-    //     this.tags = response
-    //   });
+    this.tagsService.getAllTags()
+      .subscribe(response => {
+        this.allTags = response
+        console.log(response);
+      });
 
-    this.bookService.getByIdBook({ id: this.bookId })
-        .subscribe(response => {
-          this.bookDto = response;
-          this.initForm();
-        }, err => {
-          console.log('wtf');
-        });
-     
+    this.bookService.getDtoOfBook({id: this.bookId})
+      .subscribe(response => {
+        this.bookDto = response;
+        this.initForm();
+      }, err => {
+        console.error(err);
+      });
       
     }
 
 
   private initForm() { 
+    let title = this.bookDto.title ?? '';
+    let description = this.bookDto.description ?? '';
+    let image = this.bookDto.image ?? '';
+    let publisher = this.bookDto.publisher ?? '';
+    let published = this.bookDto.published ?? '';
+    let price = this.bookDto.price ?? 10;
+    let isAvialable = this.bookDto.isAvialable ?? true;
+    let authorId = this.bookDto.authorsIds[0] ?? [];
+    let tags = this.bookDto.tags ?? [];
+
+
+
     this.bookForm = new FormGroup({
-      'title': new FormControl('', Validators.required),
-      'description': new FormControl('', Validators.required),
-      'image': new FormControl('', Validators.required),
-      'publisher': new FormControl(),
-      'published': new FormControl(),
-      'price': new FormControl(10, Validators.required),
-      'isAvialable': new FormControl(true, Validators.required),
-      'authorId': new FormControl(''),
+      'title': new FormControl(title, Validators.required),
+      'description': new FormControl(description, Validators.required),
+      'image': new FormControl(image, Validators.required),
+      'publisher': new FormControl(publisher, Validators.required),
+      'published': new FormControl(published, Validators.required),
+      'price': new FormControl(price, [Validators.required, Validators.min(0) ]),
+      'isAvialable': new FormControl(isAvialable, Validators.required),
+      'authorId': new FormControl(authorId),
       'authors': new FormArray([]),
       'tags': new FormArray([], Validators.required)
     });
+
+    tags.forEach(element => {
+      let tag = element;
+      (<FormArray>this.bookForm.get('tags')).push(new FormGroup({
+        'tag': new FormControl(tag, Validators.required)
+      }));
+    });
+
     console.log(this.bookForm);
   }
 
