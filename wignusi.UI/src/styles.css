@@ -33,6 +33,14 @@ input.ng-valid.ng-touched {
     border: 1px solid green;
 }
 
+textarea.ng-invalid.ng-touched {
+    border: 1px solid red;
+}
+
+textarea.ng-valid.ng-touched {
+    border: 1px solid green;
+}
+
 .mute-text {
     font-size: 13px;
     color: #8a8a8a;

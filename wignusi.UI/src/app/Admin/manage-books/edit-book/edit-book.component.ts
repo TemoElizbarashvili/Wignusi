@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {  FormArray, FormControl, FormGroup, PatternValidator, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { AuthorRm, BookDto, BookRm, TagRm } from 'src/app/api/models';
 import { AuthorService, BookService, TagsService } from 'src/app/api/services';
@@ -14,22 +14,23 @@ import { AuthorService, BookService, TagsService } from 'src/app/api/services';
 export class EditBookComponent implements OnInit {
   bookId: string;
   bookForm: FormGroup = new FormGroup({
-    'title': new FormControl(),
-    'description': new FormControl(),
-    'image': new FormControl(),
+    'title': new FormControl('', Validators.required),
+    'description': new FormControl('', Validators.required),
+    'image': new FormControl('', Validators.required),
     'publisher': new FormControl(),
     'published': new FormControl(),
-    'price': new FormControl(),
-    'isAvialable': new FormControl(),
-    'authorId': new FormControl(),
+    'price': new FormControl(10, Validators.required),
+    'isAvialable': new FormControl(true, Validators.required),
+    'authorId': new FormControl(''),
     'authors': new FormArray([]),
-    'tags': new FormArray([])
+    'tag': new FormControl('', Validators.required)
   });
-  authors: AuthorRm[];
-  allTags: TagRm[];
+  authors: AuthorRm[] = [];
+  allTags: TagRm[] = [];
   bookDto: BookDto;
 
-  constructor(private route: ActivatedRoute, private bookService: BookService, private authorService: AuthorService, private tagsService: TagsService) { }
+  constructor(private route: ActivatedRoute, private bookService: BookService, private authorService: AuthorService,
+             private tagsService: TagsService, private router: Router) { }
 
    ngOnInit(): void {
 
@@ -61,6 +62,7 @@ export class EditBookComponent implements OnInit {
 
 
   private initForm() { 
+    console.log(this.bookDto);
     let title = this.bookDto.title ?? '';
     let description = this.bookDto.description ?? '';
     let image = this.bookDto.image ?? '';
@@ -69,7 +71,7 @@ export class EditBookComponent implements OnInit {
     let price = this.bookDto.price ?? 10;
     let isAvialable = this.bookDto.isAvialable ?? true;
     let authorId = this.bookDto.authorsIds[0] ?? [];
-    let tags = this.bookDto.tags ?? [];
+    let tag = this.bookDto.tags[0] ?? '';
 
 
 
@@ -83,20 +85,34 @@ export class EditBookComponent implements OnInit {
       'isAvialable': new FormControl(isAvialable, Validators.required),
       'authorId': new FormControl(authorId),
       'authors': new FormArray([]),
-      'tags': new FormArray([], Validators.required)
-    });
-
-    tags.forEach(element => {
-      let tag = element;
-      (<FormArray>this.bookForm.get('tags')).push(new FormGroup({
-        'tag': new FormControl(tag, Validators.required)
-      }));
+      'tag': new FormControl(tag, Validators.required)
     });
 
     console.log(this.bookForm);
   }
 
   onSubmit() { 
+    console.log('author ID ' + this.bookForm.get('authorId').value);
+    this.bookDto = {
+      title: this.bookForm.get('title').value,
+      description: this.bookForm.get('description').value,
+      image: this.bookForm.get('image').value,
+      publisher: this.bookForm.get('publisher').value,
+      published: this.bookForm.get('published').value,
+      price: this.bookForm.get('price').value,
+      isAvialable: this.bookForm.get('isAvialable').value,
+      authors: this.bookForm.get('authors').value,
+      authorsIds: [this.bookForm.get('authorId').value],
+      tags: [this.bookForm.get('tag').value]
+    }
+
+    console.log(this.bookDto);
+
+    this.bookService.editBook({id: this.bookId, body: this.bookDto})
+      .subscribe(() => {
+        console.log('book Edited!');
+        this.router.navigate(['/admin', 'books']);
+      });
 
   }
 

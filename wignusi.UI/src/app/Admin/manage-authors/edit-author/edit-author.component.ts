@@ -20,6 +20,7 @@ export class EditAuthorComponent {
     'image': new FormControl
   });
   author: AuthorDto;
+  action = 'რედაქტირება';
 
 
   constructor(private authorService: AuthorService, private router: Router, private route: ActivatedRoute) { }

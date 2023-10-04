@@ -12,9 +12,9 @@ import { GetBooksForPageBook$Params } from '../api/fn/book/get-books-for-page-bo
 })
 export class BooksComponent implements OnInit, OnDestroy {
   subscription;
-  books: BookRm[];
-  tags: TagRm[];
-  authors: AuthorRm[];
+  books: BookRm[] = [];
+  tags: TagRm[] = [];
+  authors: AuthorRm[] = [];
   numberOfPages: number = 1;
   searchText: string;
   params: GetBooksForPageBook$Params = {

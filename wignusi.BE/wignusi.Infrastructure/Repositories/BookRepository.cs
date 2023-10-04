@@ -293,7 +293,7 @@ namespace wignusi.Infrastructure.Repositories
                     book!.Price,
                     book!.IsAvialable,
                     null,
-                    book!.AuthorsLink!.Select(a => a.AuthorId).ToArray(),
+                    book!.AuthorsLink!.Select(a => a.Author.AuthorId).ToArray(),
                     book!.Tags!.Select(t => t.TagId).ToArray()
                         );
                 return bookDto;

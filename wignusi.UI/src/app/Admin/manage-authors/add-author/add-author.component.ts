@@ -12,6 +12,7 @@ import { AuthorService } from 'src/app/api/services';
 })
 export class AddAuthorComponent implements OnInit {
   authorForm: FormGroup;
+  action = 'დამატება';
 
 
   constructor(private authorService: AuthorService, private router: Router) { }

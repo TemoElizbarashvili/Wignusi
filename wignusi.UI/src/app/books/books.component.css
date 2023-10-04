@@ -79,9 +79,9 @@ input[type=checkbox] {
     margin-top: 30px;
     margin-bottom: 30px;
     width: 100%;
-    justify-content: space-between;
     min-height: xxx;
     overflow-y: hidden;
+    justify-content: center;
 }
 
 app-book-card {
